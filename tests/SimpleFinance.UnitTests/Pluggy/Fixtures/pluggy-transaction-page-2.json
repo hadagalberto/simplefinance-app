@@ -1,0 +1,27 @@
+{
+  "results": [
+    {
+      "id": "txn-004",
+      "date": "2026-07-04T00:00:00Z",
+      "description": "Recebimento PIX",
+      "descriptionRaw": "PIX RECEBIDO JOAO",
+      "amount": -200.00,
+      "amountInAccountCurrency": -200.00,
+      "balance": 1260.65,
+      "currencyCode": "BRL",
+      "category": "Transferencias",
+      "categoryId": "cat-010",
+      "accountId": "acc-bank-001",
+      "type": "CREDIT",
+      "status": "POSTED",
+      "providerCode": null,
+      "providerId": null,
+      "paymentData": { "payer": { "name": "Joao" } },
+      "creditCardMetadata": null,
+      "merchantName": null,
+      "merchantDocument": null,
+      "operationType": "PIX_RECEIVED"
+    }
+  ],
+  "next": null
+}

@@ -1,0 +1,95 @@
+{
+  "filters": {
+    "from": "De",
+    "to": "Até",
+    "account": "Conta",
+    "allAccounts": "Todas as contas",
+    "category": "Categoria",
+    "allCategories": "Todas as categorias",
+    "type": "Tipo",
+    "typeAll": "Todos",
+    "typeIncome": "Receita",
+    "typeExpense": "Despesa",
+    "typeTransfer": "Transferência",
+    "status": "Situação",
+    "statusAll": "Todos",
+    "statusPosted": "Confirmada",
+    "statusPending": "Pendente",
+    "amount": "Valor",
+    "amountMin": "Mín.",
+    "amountMax": "Máx.",
+    "amountSet": "Valor definido",
+    "amountAny": "Qualquer valor",
+    "apply": "Aplicar",
+    "searchPlaceholder": "Buscar por descrição ou estabelecimento",
+    "clearFilters": "Limpar filtros"
+  },
+  "export": {
+    "csv": "Exportar CSV",
+    "excel": "Exportar Excel",
+    "exporting": "Exportando…"
+  },
+  "table": {
+    "date": "Data",
+    "description": "Descrição",
+    "account": "Conta",
+    "category": "Categoria",
+    "amount": "Valor",
+    "pendingBadge": "Pendente",
+    "transferBadge": "Transferência",
+    "empty": "Nenhuma transação encontrada"
+  },
+  "rowActions": {
+    "viewDetails": "Ver detalhes",
+    "recategorize": "Recategorizar",
+    "hide": "Ocultar dos relatórios",
+    "show": "Exibir nos relatórios",
+    "markTransfer": "Marcar como transferência",
+    "unmarkTransfer": "Desmarcar como transferência"
+  },
+  "emptyState": {
+    "filteredTitle": "Nenhuma transação corresponde aos seus filtros",
+    "filteredBody": "Tente ampliar o período ou limpar um filtro.",
+    "clearFilters": "Limpar filtros",
+    "noneTitle": "Nenhuma transação ainda",
+    "noneBody": "Conecte um banco para começar a ver suas transações aqui.",
+    "connect": "Conectar uma instituição"
+  },
+  "errors": {
+    "load": "Não foi possível carregar as transações. Tente novamente.",
+    "update": "Não foi possível atualizar esta transação. Tente novamente.",
+    "export": "Não foi possível exportar este relatório. Tente novamente.",
+    "loadDetail": "Não foi possível carregar os detalhes da transação. Tente novamente.",
+    "saveDetail": "Não foi possível atualizar esta transação. Tente novamente."
+  },
+  "pagination": {
+    "itemsName": "transações",
+    "summary": "Mostrando {{start}}–{{end}} de {{total}} {{items}}",
+    "label": "Páginas de transações",
+    "previous": "Página anterior",
+    "next": "Próxima página"
+  },
+  "categorySource": {
+    "SystemMapping": "Pluggy",
+    "Rule": "Regra",
+    "UserOverride": "Manual"
+  },
+  "detail": {
+    "title": "Detalhes da transação",
+    "originalDescription": "Descrição original",
+    "merchant": "Estabelecimento",
+    "account": "Conta",
+    "category": "Categoria",
+    "assignCategory": "Atribuir uma categoria",
+    "applySimilarPrompt": "Aplicar '{{category}}' a {{count}} outras transações de {{merchant}}?",
+    "applyToSimilar": "Aplicar às semelhantes",
+    "noThanks": "Não, obrigado",
+    "notes": "Notas",
+    "notesPlaceholder": "Adicione uma nota sobre esta transação…",
+    "hideFromReports": "Ocultar dos relatórios",
+    "hideFromReportsDescription": "Excluída dos totais de categorias e relatórios, mas ainda contabilizada no saldo da conta.",
+    "internalTransfer": "Transferência interna",
+    "internalTransferDescription": "Excluída dos totais de receitas/despesas quando marcada como transferência.",
+    "applySimilarSuccess": "{{count}} transações atualizadas para {{category}}."
+  }
+}

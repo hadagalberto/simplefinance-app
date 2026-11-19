@@ -1,0 +1,96 @@
+{
+  "page": {
+    "title": "Alert rules",
+    "newRule": "New rule"
+  },
+  "types": {
+    "BudgetThreshold": "Budget threshold",
+    "LowBalance": "Low balance",
+    "InvoiceDue": "Invoice due",
+    "LargeTransaction": "Large transaction",
+    "NewRecurring": "New recurring charge",
+    "SyncError": "Sync error",
+    "GoalReached": "Goal reached"
+  },
+  "summary": {
+    "categoryLabel": "Category: {{name}}",
+    "allCategories": "All categories",
+    "accountLabel": "Account: {{name}}",
+    "allAccounts": "All accounts",
+    "threshold": "Threshold: {{value}}",
+    "daysBefore_one": "{{count}} day before due",
+    "daysBefore_other": "{{count}} days before due",
+    "empty": "—"
+  },
+  "empty": {
+    "title": "No alert rules yet",
+    "description": "Create a rule to get notified about budget thresholds, low balances, and more.",
+    "cta": "New rule"
+  },
+  "errors": {
+    "load": "Couldn't load your alert rules. Please try again.",
+    "toggle": "Couldn't update this rule. Please try again.",
+    "delete": "Couldn't delete this rule. Please try again.",
+    "save": "Couldn't save this rule. Please try again."
+  },
+  "toasts": {
+    "deleted": "Alert rule deleted.",
+    "updated": "Alert rule updated.",
+    "created": "Alert rule created."
+  },
+  "table": {
+    "type": "Type",
+    "scope": "Scope",
+    "channel": "Channel",
+    "active": "Active",
+    "activate": "Activate rule",
+    "deactivate": "Deactivate rule",
+    "actions": "Rule actions",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "deleteModal": {
+    "title": "Delete this alert rule?",
+    "body": "This permanently deletes this alert rule. You will stop receiving notifications for it.",
+    "confirm": "Delete rule"
+  },
+  "form": {
+    "titleNew": "New alert rule",
+    "titleEdit": "Edit alert rule",
+    "subtitleNew": "Get notified when a condition is met.",
+    "subtitleEdit": "Update this rule's scope, threshold, or notification channel.",
+    "typeLabel": "Type",
+    "thresholdLabel": "Threshold",
+    "thresholdError": "Enter a positive amount",
+    "daysBeforeLabel": "Days before due",
+    "daysBeforeError": "Enter a number of days between 1 and 90",
+    "categoryLabel": "Category",
+    "categoryPlaceholder": "All categories",
+    "accountLabel": "Account",
+    "accountPlaceholder": "All accounts",
+    "channelLabel": "Channel",
+    "submitNew": "Create rule",
+    "submitEdit": "Save changes"
+  },
+  "channels": {
+    "Telegram": "Telegram",
+    "Email": "Email",
+    "Both": "Both"
+  },
+  "channelsCard": {
+    "title": "Notification channels",
+    "description": "Configure Telegram and/or Email via environment variables, then confirm delivery with a test.",
+    "configured": "Configured",
+    "notConfigured": "Not configured",
+    "sendTest": "Send test",
+    "sending": "Sending…",
+    "setupTooltip": "Set up {{channel}} via environment variables first.",
+    "errors": {
+      "load": "Couldn't load channel status. Please try again.",
+      "test": "Couldn't send the test notification. Please try again."
+    },
+    "toasts": {
+      "testSent": "Test notification sent."
+    }
+  }
+}

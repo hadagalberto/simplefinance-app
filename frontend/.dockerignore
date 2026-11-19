@@ -1,0 +1,36 @@
+# Docker build context for the web client image.
+# The Dockerfile installs from package.json + package-lock.json (npm ci) and
+# then copies the sources, public/, index.html and the config files, so only
+# local artefacts, secrets and editor clutter are kept out here.
+
+# Dependencies are reinstalled inside the image
+node_modules
+
+# Local build output and caches
+dist
+dist-ssr
+.vite
+coverage
+*.tsbuildinfo
+
+# End-to-end suite (runs on the host against the built stack, not in the image)
+e2e
+playwright.config.ts
+
+# Version control
+.git
+.gitignore
+
+# Local environment files (VITE_* values come in as build args instead)
+.env
+.env.*
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor and OS clutter
+.idea
+.vscode
+.DS_Store
+Thumbs.db

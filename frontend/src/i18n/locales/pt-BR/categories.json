@@ -1,0 +1,63 @@
+{
+  "page": {
+    "title": "Categorias",
+    "addCategory": "Adicionar categoria"
+  },
+  "row": {
+    "system": "Sistema",
+    "showCategory": "Mostrar categoria",
+    "hideCategory": "Ocultar categoria",
+    "actionsLabel": "Ações da categoria"
+  },
+  "types": {
+    "Expense": "Despesa",
+    "Income": "Receita",
+    "Transfer": "Transferência"
+  },
+  "errors": {
+    "load": "Não foi possível carregar suas categorias. Tente novamente.",
+    "hide": "Não foi possível atualizar esta categoria. Tente novamente.",
+    "delete": "Não foi possível excluir esta categoria. Tente novamente.",
+    "deleteInUse": "Esta categoria ainda está em uso — reatribua ou oculte-a."
+  },
+  "empty": {
+    "title": "Nenhuma categoria ainda",
+    "description": "Crie sua primeira categoria para começar a organizar as transações."
+  },
+  "deleteDialog": {
+    "title": "Excluir esta categoria?",
+    "body": "Isso exclui permanentemente \"{{name}}\". Categorias ainda referenciadas por uma transação ou regra não podem ser excluídas — oculte-a.",
+    "confirm": "Excluir categoria"
+  },
+  "toasts": {
+    "deleted": "Categoria excluída.",
+    "created": "Categoria criada.",
+    "updated": "Categoria atualizada."
+  },
+  "dialog": {
+    "titleAdd": "Adicionar categoria",
+    "titleEdit": "Editar categoria",
+    "descriptionAdd": "Crie uma nova categoria ou subcategoria.",
+    "descriptionEdit": "Atualize o nome, tipo, ícone, cor ou categoria pai.",
+    "fields": {
+      "name": "Nome",
+      "type": "Tipo",
+      "parent": "Categoria pai",
+      "icon": "Ícone",
+      "color": "Cor"
+    },
+    "noParent": "Nenhuma (nível superior)",
+    "iconSearchPlaceholder": "Buscar ícones...",
+    "noIconFound": "Nenhum ícone encontrado.",
+    "selectColor": "Selecionar cor {{color}}",
+    "errors": {
+      "nameRequired": "O nome é obrigatório",
+      "nameTooLong": "O nome é muito longo",
+      "iconRequired": "Escolha um ícone",
+      "colorRequired": "Escolha uma cor"
+    },
+    "saveError": "Não foi possível salvar esta categoria. Tente novamente.",
+    "createCategory": "Criar categoria",
+    "saveChanges": "Salvar alterações"
+  }
+}

@@ -1,0 +1,32 @@
+# What the web client generates locally and must never be committed.
+
+# npm installs
+node_modules/
+
+# Builds, incremental type-check state and test coverage
+dist/
+dist-ssr/
+.vite/
+*.tsbuildinfo
+coverage/
+
+# Machine-local configuration (can contain URLs or keys)
+.env
+.env.*.local
+*.local
+
+# Log files: our own, plus debug/error logs any package manager may drop here
+*.log
+logs/
+*-debug.log*
+*-error.log*
+
+# Editor state; only the shared VS Code extension recommendations are tracked
+.idea/
+*.swp
+/.vscode/*
+!/.vscode/extensions.json
+
+# Files the operating system leaves behind
+.DS_Store
+Thumbs.db

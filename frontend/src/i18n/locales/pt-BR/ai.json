@@ -1,0 +1,175 @@
+{
+  "title": "IA",
+  "subtitle": "Controle os recursos de IA, o limite de gastos e os modelos usados.",
+  "master": {
+    "label": "Habilitar IA",
+    "helper": "Chave geral. Quando desligada, nenhum recurso de IA na nuvem é executado, independentemente dos ajustes abaixo."
+  },
+  "features": {
+    "label": "Recursos",
+    "aiCategorizationEnabled": "Categorização automática",
+    "aiAssistantEnabled": "Assistente de chat",
+    "aiInsightsEnabled": "Insights",
+    "aiAnomalyEnabled": "Detecção de anomalias",
+    "aiForecastEnabled": "Previsão de gastos",
+    "aiMonthlySummaryEnabled": "Resumo mensal"
+  },
+  "threshold": {
+    "label": "Limiar de confiança para auto-aplicar",
+    "helper": "Acima deste valor (0 a 1) uma categorização sugerida pela IA é aplicada automaticamente.",
+    "invalid": "O limiar deve estar entre 0 e 1"
+  },
+  "budget": {
+    "label": "Limite mensal (US$)",
+    "helper": "Teto rígido de gastos com IA na nuvem no mês. 0 desativa todas as chamadas — o app continua funcionando.",
+    "invalid": "O limite deve ser zero ou maior"
+  },
+  "models": {
+    "chat": "Modelo de chat/categorização",
+    "summary": "Modelo de resumo",
+    "required": "Selecione um modelo"
+  },
+  "language": {
+    "label": "Idioma da IA",
+    "required": "Informe o idioma"
+  },
+  "keys": {
+    "label": "Chaves de API",
+    "helper": "As chaves são armazenadas criptografadas no servidor e nunca são exibidas aqui. Deixe em branco para manter a chave atual; use \"Limpar\" para voltar à variável de ambiente.",
+    "deepSeek": "Chave DeepSeek",
+    "openAi": "Chave OpenAI",
+    "present": "Configurada",
+    "absent": "Não configurada",
+    "configuredPlaceholder": "•••• (configurada)",
+    "absentPlaceholder": "não configurada",
+    "willClear": "será removida ao salvar",
+    "clear": "Limpar"
+  },
+  "usage": {
+    "title": "Uso",
+    "subtitle": "Gasto de IA em {{month}}.",
+    "spend": "Gasto no mês",
+    "feature": "Recurso",
+    "tokens": "Tokens",
+    "cost": "Custo",
+    "empty": "Nenhum uso de IA registrado neste mês.",
+    "loadError": "Não foi possível carregar o uso."
+  },
+  "save": "Salvar configurações",
+  "loadError": "Não foi possível carregar suas configurações de IA. Tente novamente.",
+  "retry": "Tentar novamente",
+  "saveError": "Não foi possível salvar suas configurações. Tente novamente.",
+  "saveSuccess": "Configurações de IA atualizadas.",
+  "suggestions": {
+    "tabLabel": "Sugestões da IA",
+    "transactionsTab": "Transações",
+    "title": "Sugestões da IA",
+    "subtitle": "Revise as categorizações sugeridas pela IA e aceite, rejeite ou transforme em regra.",
+    "columns": {
+      "transaction": "Transação",
+      "suggestedCategory": "Categoria sugerida",
+      "confidence": "Confiança",
+      "rationale": "Justificativa"
+    },
+    "accept": "Aceitar",
+    "reject": "Rejeitar",
+    "selectAll": "Selecionar todos",
+    "bulkAccept": "Aceitar selecionados",
+    "run": "Categorizar faltantes com IA",
+    "running": "Enfileirando…",
+    "createRule": "Criar regra deste merchant",
+    "noCategory": "Sem categoria",
+    "noRationale": "—",
+    "empty": "Nenhuma sugestão pendente.",
+    "emptyHint": "Rode a categorização para gerar sugestões dos lançamentos sem categoria.",
+    "loadError": "Não foi possível carregar as sugestões.",
+    "selectFirst": "Selecione ao menos uma sugestão.",
+    "runEnqueued": "Categorização enfileirada. As sugestões serão atualizadas em instantes.",
+    "runError": "Não foi possível iniciar a categorização.",
+    "acceptSuccess": "Sugestão aceita.",
+    "acceptError": "Não foi possível aceitar a sugestão. Atualizando a lista.",
+    "rejectSuccess": "Sugestão rejeitada.",
+    "rejectError": "Não foi possível rejeitar a sugestão. Atualizando a lista.",
+    "bulkAcceptSuccess": "{{count}} sugestão(ões) aceita(s).",
+    "bulkAcceptError": "Não foi possível aceitar as sugestões selecionadas.",
+    "ruleCreated": "Regra criada para {{merchant}}.",
+    "ruleError": "Não foi possível criar a regra."
+  },
+  "insights": {
+    "title": "Insights da IA",
+    "collapse": "Recolher",
+    "expand": "Expandir",
+    "view": "Ver detalhes",
+    "hide": "Ocultar detalhes",
+    "dismiss": "Dispensar",
+    "severity": {
+      "Info": "Info",
+      "Warning": "Atenção",
+      "Critical": "Crítico"
+    }
+  },
+  "forecast": {
+    "title": "Previsão do mês",
+    "projectedBalance": "Saldo projetado",
+    "range": "Faixa estimada",
+    "projectedIncome": "Receita projetada",
+    "projectedExpense": "Despesa projetada",
+    "drivers": "Principais categorias",
+    "empty": "Ainda não há previsão para este mês."
+  },
+  "summary": {
+    "title": "Resumo mensal",
+    "priorMonth": "Mês anterior",
+    "currentMonth": "Mês atual",
+    "income": "Receitas",
+    "expense": "Despesas",
+    "balance": "Saldo",
+    "netWorthChange": "Variação do patrimônio",
+    "topCategories": "Maiores categorias",
+    "resend": "Reenviar",
+    "resending": "Reenviando…",
+    "resendSuccess": "Resumo reenviado por Telegram/e-mail.",
+    "resendError": "Não foi possível reenviar o resumo.",
+    "empty": "Resumo mensal ainda não disponível."
+  },
+  "assistant": {
+    "title": "Assistente",
+    "subtitle": "Pergunte sobre seus gastos, orçamento e patrimônio. Os números vêm dos seus dados.",
+    "newConversation": "Nova conversa",
+    "conversationsTitle": "Conversas",
+    "conversationsEmpty": "Nenhuma conversa ainda.",
+    "conversationsLoadError": "Não foi possível carregar as conversas.",
+    "rename": "Renomear",
+    "renamePrompt": "Novo título da conversa",
+    "renameSuccess": "Conversa renomeada.",
+    "renameError": "Não foi possível renomear a conversa.",
+    "delete": "Excluir",
+    "deleteConfirm": "Excluir esta conversa?",
+    "deleteSuccess": "Conversa excluída.",
+    "deleteError": "Não foi possível excluir a conversa.",
+    "threadEmpty": "Comece a conversa enviando uma mensagem.",
+    "threadLoadError": "Não foi possível carregar esta conversa.",
+    "you": "Você",
+    "assistantLabel": "Assistente",
+    "thinking": "Pensando…",
+    "toolUsed": "consultei {{tool}}",
+    "placeholder": "Pergunte algo sobre suas finanças…",
+    "send": "Enviar",
+    "streamError": "Não foi possível concluir a resposta. Tente novamente.",
+    "networkError": "Falha de conexão com o assistente. Tente novamente.",
+    "action": {
+      "title": "Confirmar ação",
+      "confirm": "Confirmar",
+      "cancel": "Cancelar",
+      "confirmAll": "Confirmar todas",
+      "confirmAllSuccess": "Todas as ações pendentes foram confirmadas.",
+      "confirmAllError": "Não foi possível confirmar todas as ações.",
+      "confirmSuccess": "Ação confirmada.",
+      "cancelSuccess": "Ação cancelada.",
+      "confirmError": "Não foi possível confirmar a ação.",
+      "cancelError": "Não foi possível cancelar a ação.",
+      "alreadyDecided": "Esta ação já foi decidida ou expirou.",
+      "notFound": "Ação não encontrada."
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "pageTitle": "Investments",
+  "loadError": "Couldn't load your investments. Please try again.",
+  "stats": {
+    "totalInvested": "Total invested",
+    "totalCurrentValue": "Total current value",
+    "totalGain": "Total gain"
+  },
+  "charts": {
+    "byType": "By type",
+    "byIssuer": "By issuer",
+    "emptyMessage": "No investments synced yet."
+  },
+  "table": {
+    "name": "Name",
+    "institution": "Institution",
+    "type": "Type",
+    "value": "Value",
+    "invested": "Invested",
+    "gain": "Gain",
+    "dueDate": "Due date"
+  },
+  "empty": {
+    "title": "No investments yet",
+    "description": "Connect an account with investments to see them here."
+  }
+}

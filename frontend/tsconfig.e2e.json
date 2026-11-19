@@ -1,0 +1,22 @@
+// TypeScript settings for the Playwright end-to-end suite (e2e/ and
+// playwright.config.ts). The suite runs in Node and drives a browser, so it
+// gets Node types plus the DOM lib for code passed to page.evaluate.
+// Checked, never emitted.
+{
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/e2e.tsbuildinfo",
+
+    "target": "ES2023",
+    "lib": ["ES2023", "DOM"],
+    "types": ["node"],
+
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "verbatimModuleSyntax": true,
+    "noEmit": true,
+
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "include": ["e2e/**/*.ts", "playwright.config.ts"]
+}

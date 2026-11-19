@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-labelledby="sf-favicon-title">
+  <title id="sf-favicon-title">SimpleFinance</title>
+  <!-- Brand tile: the app's primary violet -->
+  <rect x="0" y="0" width="32" height="32" rx="7" ry="7" fill="#6d4aff"/>
+  <!-- Rising bars on a shared baseline (y = 24): a tiny growth chart -->
+  <g fill="#ffffff">
+    <rect x="7" y="17" width="4.5" height="7" rx="1.5"/>
+    <rect x="13.75" y="12.5" width="4.5" height="11.5" rx="1.5"/>
+    <rect x="20.5" y="8" width="4.5" height="16" rx="1.5"/>
+  </g>
+</svg>

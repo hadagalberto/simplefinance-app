@@ -1,0 +1,23 @@
+{
+  "bell": {
+    "title": "Notifications",
+    "empty": "No notifications yet",
+    "viewAll": "View all"
+  },
+  "channels": {
+    "Telegram": "Telegram",
+    "Email": "Email",
+    "Both": "Both"
+  },
+  "page": {
+    "title": "Notifications",
+    "markAllRead": "Mark all as read",
+    "errors": {
+      "load": "Couldn't load your notifications. Please try again."
+    },
+    "empty": {
+      "title": "No notifications yet",
+      "description": "Alerts fired by your budget, balance, invoice, and goal rules will show up here."
+    }
+  }
+}

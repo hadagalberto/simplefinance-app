@@ -1,0 +1,32 @@
+{
+  "pageTitle": "Recurring",
+  "loadError": "Couldn't load recurring charges. Please try again.",
+  "updateError": "Couldn't update this recurring charge. Please try again.",
+  "retry": "Retry",
+  "statTile": {
+    "monthlyCommittedCost": "Monthly committed cost"
+  },
+  "empty": {
+    "title": "No recurring charges yet",
+    "description": "No recurring charges detected yet — check back after your accounts have synced a few months of history."
+  },
+  "table": {
+    "name": "Name",
+    "category": "Category",
+    "avgAmount": "Avg amount",
+    "frequency": "Frequency",
+    "lastCharge": "Last charge",
+    "nextEstimated": "Next estimated",
+    "yearlyTotal": "Yearly total"
+  },
+  "row": {
+    "newBadge": "New",
+    "priceIncreaseBadge": "Price increase",
+    "uncategorized": "Uncategorized",
+    "actionsAriaLabel": "Recurring charge actions",
+    "markAsSubscription": "Mark as subscription",
+    "unmarkAsSubscription": "Unmark as subscription",
+    "markActive": "Mark active",
+    "markCancelled": "Mark cancelled"
+  }
+}

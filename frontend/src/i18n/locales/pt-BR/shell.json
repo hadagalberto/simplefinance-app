@@ -1,0 +1,55 @@
+{
+  "chartCard": {
+    "loadError": "Não foi possível carregar este gráfico."
+  },
+  "userDropdown": {
+    "account": "Conta",
+    "welcomeBack": "Bem-vindo(a) de volta, {{name}}!",
+    "changePassword": "Alterar Senha",
+    "enableTwoFactor": "Ativar Autenticação de Dois Fatores",
+    "logOut": "Sair"
+  },
+  "search": {
+    "placeholder": "Pesquisa rápida..."
+  },
+  "theme": {
+    "label": "Tema",
+    "light": "Claro",
+    "dark": "Escuro",
+    "system": "Sistema"
+  },
+  "footer": {
+    "copyright": "© {{year}} SimpleFinance"
+  },
+  "sidebar": {
+    "navLabel": "Navegação principal",
+    "close": "Fechar menu"
+  },
+  "topbar": {
+    "toggleMenu": "Alternar menu"
+  },
+  "fullscreen": {
+    "enter": "Tela cheia",
+    "exit": "Sair da tela cheia"
+  },
+  "language": {
+    "label": "Idioma"
+  },
+  "authLayout": {
+    "tagline": "Seu dinheiro de todos os bancos, num só lugar.",
+    "highlights": {
+      "consolidated": "Contas, cartões e investimentos consolidados via Open Finance",
+      "budget": "Orçamento, metas e alertas automáticos",
+      "selfHosted": "Roda na sua própria infraestrutura"
+    },
+    "backToApp": "Voltar ao app"
+  },
+  "notFound": {
+    "title": "Página não encontrada",
+    "description": "O endereço que você abriu não existe ou foi movido.",
+    "back": "Voltar ao dashboard"
+  },
+  "pageHeader": {
+    "breadcrumb": "Navegação estrutural"
+  }
+}

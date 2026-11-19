@@ -1,0 +1,77 @@
+// SimpleFinance — design tokens.
+//
+// `--sf-*` CSS custom properties authored for SimpleFinance, emitted after
+// Bootstrap. One block per color mode, driven by Bootstrap's data-bs-theme
+// attribute, so switching light/dark needs no rebuild. Component surfaces
+// (cards, modals, dropdowns) read these through the overrides in
+// _variables.scss; chart code reads them at runtime via getComputedStyle.
+//
+// The dark block must stay after the light block: both have the same
+// specificity on <html>, so source order decides.
+
+:root,
+[data-bs-theme="light"] {
+  --sf-surface-body: #{$sf-surface-body-light};
+  --sf-surface-card: #{$sf-surface-card-light};
+  --sf-surface-raised: #{$sf-surface-raised-light};
+  --sf-surface-sunken: #{$sf-surface-sunken-light};
+  --sf-surface-sunken-rgb: #{to-rgb($sf-surface-sunken-light)};
+  --sf-border-subtle: #{$sf-border-subtle-light};
+  --sf-income: #{$sf-income-light};
+  --sf-expense: #{$sf-expense-light};
+  --sf-transfer: #{$sf-transfer-light};
+  --sf-neutral: #{$sf-neutral-light};
+  --sf-neutral-rgb: #{to-rgb($sf-neutral-light)};
+  --sf-chart-primary: #{$sf-chart-primary-light};
+  --sf-chart-text: #{$sf-chart-text-light};
+  --sf-chart-grid: #{$sf-chart-grid-light};
+  --sf-chart-gray: #{$sf-chart-gray-light};
+  --sf-chart-1: #{nth($sf-chart-palette-light, 1)};
+  --sf-chart-2: #{nth($sf-chart-palette-light, 2)};
+  --sf-chart-3: #{nth($sf-chart-palette-light, 3)};
+  --sf-chart-4: #{nth($sf-chart-palette-light, 4)};
+  --sf-chart-5: #{nth($sf-chart-palette-light, 5)};
+  --sf-chart-6: #{nth($sf-chart-palette-light, 6)};
+}
+
+[data-bs-theme="dark"] {
+  --sf-surface-body: #{$sf-surface-body-dark};
+  --sf-surface-card: #{$sf-surface-card-dark};
+  --sf-surface-raised: #{$sf-surface-raised-dark};
+  --sf-surface-sunken: #{$sf-surface-sunken-dark};
+  --sf-surface-sunken-rgb: #{to-rgb($sf-surface-sunken-dark)};
+  --sf-border-subtle: #{$sf-border-subtle-dark};
+  --sf-income: #{$sf-income-dark};
+  --sf-expense: #{$sf-expense-dark};
+  --sf-transfer: #{$sf-transfer-dark};
+  --sf-neutral: #{$sf-neutral-dark};
+  --sf-neutral-rgb: #{to-rgb($sf-neutral-dark)};
+  --sf-chart-primary: #{$sf-chart-primary-dark};
+  --sf-chart-text: #{$sf-chart-text-dark};
+  --sf-chart-grid: #{$sf-chart-grid-dark};
+  --sf-chart-gray: #{$sf-chart-gray-dark};
+  --sf-chart-1: #{nth($sf-chart-palette-dark, 1)};
+  --sf-chart-2: #{nth($sf-chart-palette-dark, 2)};
+  --sf-chart-3: #{nth($sf-chart-palette-dark, 3)};
+  --sf-chart-4: #{nth($sf-chart-palette-dark, 4)};
+  --sf-chart-5: #{nth($sf-chart-palette-dark, 5)};
+  --sf-chart-6: #{nth($sf-chart-palette-dark, 6)};
+}
+
+// Financial text utilities (MoneyText, StatTile). Same strength as Bootstrap's
+// own text utilities.
+.text-income {
+  color: var(--sf-income) !important;
+}
+
+.text-expense {
+  color: var(--sf-expense) !important;
+}
+
+.text-transfer {
+  color: var(--sf-transfer) !important;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}

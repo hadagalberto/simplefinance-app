@@ -1,0 +1,108 @@
+{
+  "page": {
+    "title": "Regras",
+    "newRule": "Nova regra"
+  },
+  "table": {
+    "priority": "Prioridade",
+    "matchSummary": "Resumo da correspondência",
+    "category": "Categoria",
+    "active": "Ativa",
+    "moveUp": "Mover regra para cima",
+    "moveDown": "Mover regra para baixo",
+    "actionsLabel": "Ações da regra",
+    "applyNow": "Aplicar agora",
+    "activate": "Ativar regra",
+    "deactivate": "Desativar regra"
+  },
+  "fields": {
+    "DESCRIPTION": "Descrição",
+    "MERCHANT": "Estabelecimento",
+    "PLUGGY_CATEGORY": "Categoria do Pluggy",
+    "AMOUNT": "Valor"
+  },
+  "operators": {
+    "summary": {
+      "CONTAINS": "contém",
+      "EQUALS": "é igual a",
+      "REGEX": "corresponde ao padrão",
+      "RANGE": "entre"
+    },
+    "labels": {
+      "CONTAINS": "Contém",
+      "EQUALS": "Igual a",
+      "REGEX": "Regex (avançado)",
+      "RANGE": "Intervalo"
+    }
+  },
+  "matchSummary": {
+    "range": "{{field}} entre {{min}} e {{max}}",
+    "amountEquals": "{{field}} é igual a {{value}}",
+    "regex": "{{field}} corresponde ao padrão \"{{value}}\"",
+    "default": "{{field}} {{operator}} \"{{value}}\""
+  },
+  "errors": {
+    "load": "Não foi possível carregar suas regras. Tente novamente.",
+    "toggle": "Não foi possível atualizar esta regra. Tente novamente.",
+    "reorder": "Não foi possível reordenar esta regra. Tente novamente.",
+    "apply": "Não foi possível aplicar esta regra. Tente novamente.",
+    "delete": "Não foi possível excluir esta regra. Tente novamente.",
+    "save": "Não foi possível salvar esta regra. Tente novamente."
+  },
+  "empty": {
+    "title": "Nenhuma regra ainda",
+    "description": "Crie uma regra para categorizar automaticamente as transações correspondentes."
+  },
+  "applyDialog": {
+    "title": "Aplicar esta regra agora?",
+    "body": "Aplicar esta regra a todas as transações correspondentes agora? Transações recategorizadas manualmente nunca são afetadas.",
+    "confirm": "Aplicar agora"
+  },
+  "deleteDialog": {
+    "title": "Excluir esta regra?",
+    "body": "Isso exclui permanentemente esta regra. As transações já categorizadas por ela mantêm a categoria atual.",
+    "confirm": "Excluir regra"
+  },
+  "toasts": {
+    "applied": "{{count}} transações atualizadas.",
+    "deleted": "Regra excluída.",
+    "created": "Regra criada.",
+    "updated": "Regra atualizada."
+  },
+  "dialog": {
+    "titleAdd": "Nova regra",
+    "titleEdit": "Editar regra",
+    "descriptionAdd": "Categorize automaticamente transações que correspondam a uma condição. Novas regras são avaliadas por último.",
+    "descriptionEdit": "Atualize a condição de correspondência ou a categoria de destino desta regra.",
+    "fields": {
+      "field": "Campo",
+      "operator": "Operador",
+      "min": "Mín.",
+      "max": "Máx.",
+      "value": "Valor",
+      "category": "Categoria"
+    },
+    "regexHint": "Avançado — expressão regular",
+    "categoryPlaceholder": "Escolha uma categoria",
+    "errors": {
+      "matchValueTooLong": "O valor é muito longo",
+      "amountMinRequired": "Informe um valor mínimo",
+      "amountMaxRequired": "Informe um valor máximo",
+      "amountMaxGteMin": "O máximo deve ser maior ou igual ao mínimo",
+      "matchValueRequired": "O valor é obrigatório",
+      "invalidNumber": "Informe um número válido",
+      "invalidRegex": "Expressão regular inválida",
+      "categoryRequired": "Escolha uma categoria"
+    },
+    "test": {
+      "title": "Testar esta regra",
+      "checking": "Verificando correspondências…",
+      "matches_one": "Corresponde a {{count}} transação",
+      "matches_other": "Corresponde a {{count}} transações",
+      "hint": "Preencha um valor para pré-visualizar as transações correspondentes."
+    },
+    "saveError": "Não foi possível salvar esta regra. Tente novamente.",
+    "createRule": "Criar regra",
+    "saveChanges": "Salvar alterações"
+  }
+}

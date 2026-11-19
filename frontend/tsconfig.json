@@ -1,0 +1,14 @@
+// Top-level TypeScript project for the web client. Editors open this file
+// first; it type-checks nothing on its own and only delegates:
+//
+//   tsconfig.node.json  build tooling that runs under Node (vite.config.ts)
+//   tsconfig.app.json   the React application in src/ (browser + Vite types)
+//   tsconfig.e2e.json   the Playwright end-to-end suite in e2e/ (Node + DOM)
+//
+// Keeping them apart stops DOM types leaking into tooling code and Node types
+// leaking into the app. Run `npm run typecheck` to check all three.
+{
+  "references": [{ "path": "./tsconfig.node.json" }, { "path": "./tsconfig.app.json" }, { "path": "./tsconfig.e2e.json" }],
+  // Empty on purpose: every source file belongs to one referenced project.
+  "files": []
+}

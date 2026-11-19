@@ -1,0 +1,95 @@
+{
+  "filters": {
+    "from": "From",
+    "to": "To",
+    "account": "Account",
+    "allAccounts": "All accounts",
+    "category": "Category",
+    "allCategories": "All categories",
+    "type": "Type",
+    "typeAll": "All",
+    "typeIncome": "Income",
+    "typeExpense": "Expense",
+    "typeTransfer": "Transfer",
+    "status": "Status",
+    "statusAll": "All",
+    "statusPosted": "Posted",
+    "statusPending": "Pending",
+    "amount": "Amount",
+    "amountMin": "Min",
+    "amountMax": "Max",
+    "amountSet": "Amount set",
+    "amountAny": "Any amount",
+    "apply": "Apply",
+    "searchPlaceholder": "Search by description or merchant",
+    "clearFilters": "Clear filters"
+  },
+  "export": {
+    "csv": "Export CSV",
+    "excel": "Export Excel",
+    "exporting": "Exporting…"
+  },
+  "table": {
+    "date": "Date",
+    "description": "Description",
+    "account": "Account",
+    "category": "Category",
+    "amount": "Amount",
+    "pendingBadge": "Pending",
+    "transferBadge": "Transfer",
+    "empty": "No transactions found"
+  },
+  "rowActions": {
+    "viewDetails": "View details",
+    "recategorize": "Recategorize",
+    "hide": "Hide from reports",
+    "show": "Show in reports",
+    "markTransfer": "Mark as transfer",
+    "unmarkTransfer": "Unmark as transfer"
+  },
+  "emptyState": {
+    "filteredTitle": "No transactions match your filters",
+    "filteredBody": "Try widening the period or clearing a filter.",
+    "clearFilters": "Clear filters",
+    "noneTitle": "No transactions yet",
+    "noneBody": "Connect a bank to start seeing your transactions here.",
+    "connect": "Connect an institution"
+  },
+  "errors": {
+    "load": "Couldn't load transactions. Please try again.",
+    "update": "Couldn't update this transaction. Please try again.",
+    "export": "Couldn't export this report. Please try again.",
+    "loadDetail": "Couldn't load transaction details. Please try again.",
+    "saveDetail": "Couldn't update this transaction. Please try again."
+  },
+  "pagination": {
+    "itemsName": "transactions",
+    "summary": "Showing {{start}}–{{end}} of {{total}} {{items}}",
+    "label": "Transaction pages",
+    "previous": "Previous page",
+    "next": "Next page"
+  },
+  "categorySource": {
+    "SystemMapping": "Pluggy",
+    "Rule": "Rule",
+    "UserOverride": "Manual"
+  },
+  "detail": {
+    "title": "Transaction details",
+    "originalDescription": "Original description",
+    "merchant": "Merchant",
+    "account": "Account",
+    "category": "Category",
+    "assignCategory": "Assign a category",
+    "applySimilarPrompt": "Apply '{{category}}' to {{count}} other transactions from {{merchant}}?",
+    "applyToSimilar": "Apply to similar",
+    "noThanks": "No thanks",
+    "notes": "Notes",
+    "notesPlaceholder": "Add a note about this transaction…",
+    "hideFromReports": "Hide from reports",
+    "hideFromReportsDescription": "Excluded from category totals and reports, but still counted in your account balance.",
+    "internalTransfer": "Internal transfer",
+    "internalTransferDescription": "Excluded from income/expense totals when marked as a transfer.",
+    "applySimilarSuccess": "Updated {{count}} transactions to {{category}}."
+  }
+}

@@ -1,0 +1,125 @@
+// SimpleFinance — palette and Bootstrap 5 variable overrides.
+//
+// Imported after `bootstrap/scss/functions` and before Bootstrap itself, so
+// every value here is a literal or uses Bootstrap functions only. Bootstrap's
+// own variables are declared with !default, so the values below win.
+//
+// The `$sf-*` names are a stable interface for the rest of the stylesheet
+// (tokens, charts, utilities): values may be tuned, names must not change.
+// Each palette entry has one light and one dark value; `_tokens.scss` turns
+// them into `--sf-*` CSS custom properties per color mode.
+
+// ---------------------------------------------------------------------------
+// Palette — surfaces
+// ---------------------------------------------------------------------------
+$sf-surface-body-light: #f3f4f9;
+$sf-surface-body-dark: #0e1322;
+
+$sf-surface-card-light: #ffffff;
+$sf-surface-card-dark: #151b2e;
+
+$sf-surface-raised-light: #ffffff;
+$sf-surface-raised-dark: #1b2238;
+
+$sf-surface-sunken-light: #eceef5;
+$sf-surface-sunken-dark: #0a0e1a;
+
+$sf-border-subtle-light: #e2e5ee;
+$sf-border-subtle-dark: #252d47;
+
+$sf-text-light: #1d2233;
+$sf-text-dark: #dfe3ef;
+
+// ---------------------------------------------------------------------------
+// Palette — financial semantics
+// ---------------------------------------------------------------------------
+$sf-income-light: #0a7d55;
+$sf-income-dark: #3ddc97;
+
+$sf-expense-light: #c62f45;
+$sf-expense-dark: #ff6b81;
+
+$sf-transfer-light: #2f5fc4;
+$sf-transfer-dark: #7aa7ff;
+
+$sf-neutral-light: #1d2233;
+$sf-neutral-dark: #e4e7f2;
+
+// ---------------------------------------------------------------------------
+// Palette — charts
+// ---------------------------------------------------------------------------
+$sf-chart-primary-light: #6d4aff;
+$sf-chart-primary-dark: #9b87ff;
+
+$sf-chart-text-light: #5a6178;
+$sf-chart-text-dark: #a3abc4;
+
+$sf-chart-grid-light: #e6e8f0;
+$sf-chart-grid-dark: #262e48;
+
+$sf-chart-gray-light: #858ca1;
+$sf-chart-gray-dark: #6b7491;
+
+$sf-chart-palette-light: (#6d4aff, #0f9f6e, #c27a00, #1f8fd1, #d6457f, #6c9a1f);
+$sf-chart-palette-dark: (#9b87ff, #3ddc97, #ffb547, #5cc8ff, #ff7eb6, #c3e66e);
+
+// ---------------------------------------------------------------------------
+// Bootstrap — theme colors
+// ---------------------------------------------------------------------------
+// White text on $primary clears 4.5:1, so color-contrast() keeps white button
+// labels. success/danger/warning/info stay at Bootstrap defaults.
+$primary: #6d4aff;
+$secondary: #5f6782;
+
+// ---------------------------------------------------------------------------
+// Bootstrap — body (literal colors: Bootstrap runs color math on these)
+// ---------------------------------------------------------------------------
+$body-bg: $sf-surface-body-light;
+$body-color: $sf-text-light;
+$border-color: $sf-border-subtle-light;
+
+$body-bg-dark: $sf-surface-body-dark;
+$body-color-dark: $sf-text-dark;
+$border-color-dark: $sf-border-subtle-dark;
+$body-secondary-bg-dark: $sf-surface-raised-dark;
+$body-tertiary-bg-dark: #181f33;
+
+// ---------------------------------------------------------------------------
+// Bootstrap — typography
+// ---------------------------------------------------------------------------
+$font-family-sans-serif: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+  "Noto Sans", "Liberation Sans", sans-serif;
+$font-size-base: .9rem;
+$headings-font-weight: 600;
+
+// ---------------------------------------------------------------------------
+// Bootstrap — shape
+// ---------------------------------------------------------------------------
+$border-radius: .5rem;
+$border-radius-sm: .375rem;
+$border-radius-lg: .75rem;
+
+$card-border-radius: .875rem;
+$card-spacer-y: 1.25rem;
+$card-spacer-x: 1.25rem;
+
+$link-decoration: none;
+$link-hover-decoration: underline;
+
+// ---------------------------------------------------------------------------
+// Bootstrap — component surfaces through CSS custom properties, so light and
+// dark switch at runtime with data-bs-theme (values live in _tokens.scss).
+// ---------------------------------------------------------------------------
+$card-bg: var(--sf-surface-card);
+$card-border-color: var(--sf-border-subtle);
+$card-cap-bg: transparent;
+
+$modal-content-bg: var(--sf-surface-raised);
+$dropdown-bg: var(--sf-surface-raised);
+$offcanvas-bg-color: var(--sf-surface-raised);
+$popover-bg: var(--sf-surface-raised);
+
+$list-group-bg: transparent;
+// Tables sit inside cards; body-bg cells would not match the card surface.
+$table-bg: transparent;
+$nav-tabs-link-active-bg: var(--sf-surface-card);

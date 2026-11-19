@@ -1,0 +1,108 @@
+{
+  "page": {
+    "title": "Rules",
+    "newRule": "New rule"
+  },
+  "table": {
+    "priority": "Priority",
+    "matchSummary": "Match summary",
+    "category": "Category",
+    "active": "Active",
+    "moveUp": "Move rule up",
+    "moveDown": "Move rule down",
+    "actionsLabel": "Rule actions",
+    "applyNow": "Apply now",
+    "activate": "Activate rule",
+    "deactivate": "Deactivate rule"
+  },
+  "fields": {
+    "DESCRIPTION": "Description",
+    "MERCHANT": "Merchant",
+    "PLUGGY_CATEGORY": "Pluggy category",
+    "AMOUNT": "Amount"
+  },
+  "operators": {
+    "summary": {
+      "CONTAINS": "contains",
+      "EQUALS": "equals",
+      "REGEX": "matches pattern",
+      "RANGE": "between"
+    },
+    "labels": {
+      "CONTAINS": "Contains",
+      "EQUALS": "Equals",
+      "REGEX": "Regex (advanced)",
+      "RANGE": "Range"
+    }
+  },
+  "matchSummary": {
+    "range": "{{field}} between {{min}} and {{max}}",
+    "amountEquals": "{{field}} equals {{value}}",
+    "regex": "{{field}} matches pattern \"{{value}}\"",
+    "default": "{{field}} {{operator}} \"{{value}}\""
+  },
+  "errors": {
+    "load": "Couldn't load your rules. Please try again.",
+    "toggle": "Couldn't update this rule. Please try again.",
+    "reorder": "Couldn't reorder this rule. Please try again.",
+    "apply": "Couldn't apply this rule. Please try again.",
+    "delete": "Couldn't delete this rule. Please try again.",
+    "save": "Couldn't save this rule. Please try again."
+  },
+  "empty": {
+    "title": "No rules yet",
+    "description": "Create a rule to automatically categorize matching transactions."
+  },
+  "applyDialog": {
+    "title": "Apply this rule now?",
+    "body": "Apply this rule to all matching transactions now? Transactions you've manually recategorized are never affected.",
+    "confirm": "Apply now"
+  },
+  "deleteDialog": {
+    "title": "Delete this rule?",
+    "body": "This permanently deletes this rule. Transactions it already categorized keep their current category.",
+    "confirm": "Delete rule"
+  },
+  "toasts": {
+    "applied": "Updated {{count}} transactions.",
+    "deleted": "Rule deleted.",
+    "created": "Rule created.",
+    "updated": "Rule updated."
+  },
+  "dialog": {
+    "titleAdd": "New rule",
+    "titleEdit": "Edit rule",
+    "descriptionAdd": "Automatically categorize transactions matching a condition. New rules are evaluated last.",
+    "descriptionEdit": "Update this rule’s match condition or target category.",
+    "fields": {
+      "field": "Field",
+      "operator": "Operator",
+      "min": "Min",
+      "max": "Max",
+      "value": "Value",
+      "category": "Category"
+    },
+    "regexHint": "Advanced — regular expression",
+    "categoryPlaceholder": "Choose a category",
+    "errors": {
+      "matchValueTooLong": "Value is too long",
+      "amountMinRequired": "Enter a minimum amount",
+      "amountMaxRequired": "Enter a maximum amount",
+      "amountMaxGteMin": "Max must be greater than or equal to min",
+      "matchValueRequired": "Value is required",
+      "invalidNumber": "Enter a valid number",
+      "invalidRegex": "Invalid regular expression",
+      "categoryRequired": "Choose a category"
+    },
+    "test": {
+      "title": "Test this rule",
+      "checking": "Checking matches…",
+      "matches_one": "Matches {{count}} transaction",
+      "matches_other": "Matches {{count}} transactions",
+      "hint": "Fill in a value to preview matching transactions."
+    },
+    "saveError": "Couldn't save this rule. Please try again.",
+    "createRule": "Create rule",
+    "saveChanges": "Save changes"
+  }
+}

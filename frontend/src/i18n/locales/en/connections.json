@@ -1,0 +1,58 @@
+{
+  "title": "Connections",
+  "connect": "Connect an institution",
+  "fallbackName": "Connection",
+  "loadError": "Couldn't load your connections. Please try again.",
+  "status": {
+    "upToDate": "Up to date",
+    "syncing": "Syncing…",
+    "actionNeeded": "Action needed",
+    "reconnectNeeded": "Reconnect needed",
+    "syncIncomplete": "Sync incomplete",
+    "partialSyncIssue": "Partial sync issue"
+  },
+  "actions": {
+    "syncNow": "Sync now",
+    "viewDetails": "View details",
+    "completeVerification": "Complete verification",
+    "reconnect": "Reconnect",
+    "retrySync": "Retry sync",
+    "removeConnection": "Remove connection",
+    "connectionActions": "Connection actions"
+  },
+  "lastSync": {
+    "never": "Never synced",
+    "label": "Last synced {{date}}"
+  },
+  "empty": {
+    "title": "No connections yet",
+    "description": "Connect your first bank or card to start importing data."
+  },
+  "details": {
+    "title": "Connection details",
+    "empty": "No additional details available."
+  },
+  "rename": {
+    "title": "Rename connection",
+    "nickname": "Nickname",
+    "placeholder": "e.g. Nubank PJ",
+    "helper": "Give this connection a name to tell it apart from others at the same bank. Leave blank to use the institution name.",
+    "success": "Connection renamed.",
+    "error": "Couldn't rename this connection. Please try again."
+  },
+  "remove": {
+    "title": "Remove this connection?",
+    "body": "This disconnects {{name}} from Pluggy and hides its accounts, cards, and transaction history from SimpleFinance. This can't be undone from here — you'd need to reconnect and re-sync from scratch.",
+    "fallbackInstitution": "this institution",
+    "success": "{{name}} has been removed.",
+    "error": "Couldn't remove this connection. Please try again."
+  },
+  "toast": {
+    "syncStarted": "Sync started.",
+    "syncCooldown": "A sync was just triggered for this connection. Please wait a bit before retrying.",
+    "syncError": "Couldn't start a sync. Please try again.",
+    "duplicate": "This institution is already connected.",
+    "registerError": "Couldn't finish connecting this institution. Please try again.",
+    "verificationSubmitted": "Verification submitted — syncing…"
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "title": "Reports",
+  "period": {
+    "label": "Period (applies to By category, Income vs expense, Cash flow, and Card statements)",
+    "from": "From",
+    "to": "To"
+  },
+  "tabs": {
+    "byCategory": "By category",
+    "incomeExpense": "Income vs expense",
+    "netWorth": "Net worth",
+    "cashFlow": "Cash flow",
+    "cardStatements": "Card statements",
+    "recurring": "Recurring",
+    "budget": "Budget"
+  },
+  "export": {
+    "csv": "Export CSV",
+    "csvPending": "Exporting…",
+    "excel": "Export Excel",
+    "excelPending": "Exporting…",
+    "error": "Couldn't export this report. Please try again."
+  },
+  "spendingByCategory": {
+    "title": "Spending by category",
+    "empty": "No spending recorded for this period yet.",
+    "uncategorized": "Uncategorized"
+  },
+  "incomeExpenseChart": {
+    "title": "Income vs. expenses",
+    "empty": "No income or expense recorded for this period yet."
+  },
+  "netWorthChart": {
+    "title": "Net worth over time",
+    "empty": "Your net worth history starts today. Check back tomorrow to see how it evolves.",
+    "valueLabel": "Net worth"
+  },
+  "cashFlowTable": {
+    "title": "Cash flow by account",
+    "empty": "No account activity recorded for this period yet.",
+    "columns": {
+      "account": "Account",
+      "inflow": "Inflow",
+      "outflow": "Outflow",
+      "net": "Net"
+    }
+  },
+  "cardStatementsTable": {
+    "title": "Card statements",
+    "empty": "No card statements recorded for this period yet.",
+    "columns": {
+      "account": "Account",
+      "month": "Month",
+      "statementTotal": "Statement total",
+      "creditLimit": "Credit limit",
+      "dueDate": "Due date"
+    }
+  },
+  "recurringTable": {
+    "title": "Recurring charges",
+    "empty": "No recurring charges detected yet.",
+    "columns": {
+      "name": "Name",
+      "category": "Category",
+      "avgAmount": "Avg amount",
+      "frequency": "Frequency",
+      "lastCharge": "Last charge",
+      "nextEstimated": "Next estimated",
+      "yearlyTotal": "Yearly total"
+    },
+    "new": "New",
+    "priceIncrease": "Price increase",
+    "uncategorized": "Uncategorized"
+  },
+  "budgetTable": {
+    "title": "Budget realized vs. planned",
+    "empty": "No budgets set for this month yet.",
+    "columns": {
+      "category": "Category",
+      "planned": "Planned",
+      "realized": "Realized",
+      "variance": "Variance"
+    }
+  },
+  "months": {
+    "january": "January",
+    "february": "February",
+    "march": "March",
+    "april": "April",
+    "may": "May",
+    "june": "June",
+    "july": "July",
+    "august": "August",
+    "september": "September",
+    "october": "October",
+    "november": "November",
+    "december": "December"
+  }
+}

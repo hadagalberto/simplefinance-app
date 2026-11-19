@@ -1,0 +1,32 @@
+{
+  "title": "Geral",
+  "subtitle": "Fuso horário, moeda base, agendamento de sincronização e tema.",
+  "timezone": {
+    "label": "Fuso horário",
+    "placeholder": "America/Sao_Paulo",
+    "helper": "ex.: America/Sao_Paulo",
+    "required": "O fuso horário é obrigatório"
+  },
+  "baseCurrency": {
+    "label": "Moeda base",
+    "placeholder": "BRL",
+    "helper": "Atualmente apenas exibido — o SimpleFinance não converte entre moedas.",
+    "invalid": "Informe um código de moeda com 3 letras"
+  },
+  "syncCron": {
+    "label": "Agendamento de sincronização",
+    "placeholder": "0 6,18 * * *",
+    "helper": "Expressão cron para a sincronização de contas duas vezes ao dia, ex.: 0 6,18 * * *",
+    "required": "A expressão cron é obrigatória"
+  },
+  "defaultTheme": {
+    "label": "Tema padrão",
+    "light": "Claro",
+    "dark": "Escuro"
+  },
+  "save": "Salvar preferências",
+  "loadError": "Não foi possível carregar suas preferências. Tente novamente.",
+  "retry": "Tentar novamente",
+  "saveError": "Não foi possível salvar suas preferências. Tente novamente.",
+  "saveSuccess": "Preferências atualizadas."
+}

@@ -1,0 +1,175 @@
+{
+  "title": "AI",
+  "subtitle": "Control AI features, the spending cap, and the models used.",
+  "master": {
+    "label": "Enable AI",
+    "helper": "Master switch. When off, no cloud AI feature runs regardless of the settings below."
+  },
+  "features": {
+    "label": "Features",
+    "aiCategorizationEnabled": "Automatic categorization",
+    "aiAssistantEnabled": "Chat assistant",
+    "aiInsightsEnabled": "Insights",
+    "aiAnomalyEnabled": "Anomaly detection",
+    "aiForecastEnabled": "Spending forecast",
+    "aiMonthlySummaryEnabled": "Monthly summary"
+  },
+  "threshold": {
+    "label": "Auto-apply confidence threshold",
+    "helper": "Above this value (0 to 1) an AI-suggested categorization is applied automatically.",
+    "invalid": "The threshold must be between 0 and 1"
+  },
+  "budget": {
+    "label": "Monthly cap (US$)",
+    "helper": "Hard monthly cap on cloud AI spend. 0 disables all calls — the app stays fully functional.",
+    "invalid": "The cap must be zero or greater"
+  },
+  "models": {
+    "chat": "Chat/categorization model",
+    "summary": "Summary model",
+    "required": "Select a model"
+  },
+  "language": {
+    "label": "AI language",
+    "required": "Provide a language"
+  },
+  "keys": {
+    "label": "API keys",
+    "helper": "Keys are stored encrypted on the server and are never shown here. Leave blank to keep the current key; use \"Clear\" to revert to the environment variable.",
+    "deepSeek": "DeepSeek key",
+    "openAi": "OpenAI key",
+    "present": "Configured",
+    "absent": "Not configured",
+    "configuredPlaceholder": "•••• (configured)",
+    "absentPlaceholder": "not configured",
+    "willClear": "will be removed on save",
+    "clear": "Clear"
+  },
+  "usage": {
+    "title": "Usage",
+    "subtitle": "AI spend for {{month}}.",
+    "spend": "Month spend",
+    "feature": "Feature",
+    "tokens": "Tokens",
+    "cost": "Cost",
+    "empty": "No AI usage recorded this month.",
+    "loadError": "Could not load usage."
+  },
+  "save": "Save settings",
+  "loadError": "Could not load your AI settings. Try again.",
+  "retry": "Try again",
+  "saveError": "Could not save your settings. Try again.",
+  "saveSuccess": "AI settings updated.",
+  "suggestions": {
+    "tabLabel": "AI Suggestions",
+    "transactionsTab": "Transactions",
+    "title": "AI Suggestions",
+    "subtitle": "Review AI-suggested categorizations and accept, reject, or turn them into a rule.",
+    "columns": {
+      "transaction": "Transaction",
+      "suggestedCategory": "Suggested category",
+      "confidence": "Confidence",
+      "rationale": "Rationale"
+    },
+    "accept": "Accept",
+    "reject": "Reject",
+    "selectAll": "Select all",
+    "bulkAccept": "Accept selected",
+    "run": "Categorize missing with AI",
+    "running": "Enqueuing…",
+    "createRule": "Create rule from this merchant",
+    "noCategory": "No category",
+    "noRationale": "—",
+    "empty": "No pending suggestions.",
+    "emptyHint": "Run categorization to generate suggestions for uncategorized transactions.",
+    "loadError": "Could not load suggestions.",
+    "selectFirst": "Select at least one suggestion.",
+    "runEnqueued": "Categorization enqueued. Suggestions will refresh shortly.",
+    "runError": "Could not start categorization.",
+    "acceptSuccess": "Suggestion accepted.",
+    "acceptError": "Could not accept the suggestion. Refreshing the list.",
+    "rejectSuccess": "Suggestion rejected.",
+    "rejectError": "Could not reject the suggestion. Refreshing the list.",
+    "bulkAcceptSuccess": "{{count}} suggestion(s) accepted.",
+    "bulkAcceptError": "Could not accept the selected suggestions.",
+    "ruleCreated": "Rule created for {{merchant}}.",
+    "ruleError": "Could not create the rule."
+  },
+  "insights": {
+    "title": "AI Insights",
+    "collapse": "Collapse",
+    "expand": "Expand",
+    "view": "View details",
+    "hide": "Hide details",
+    "dismiss": "Dismiss",
+    "severity": {
+      "Info": "Info",
+      "Warning": "Warning",
+      "Critical": "Critical"
+    }
+  },
+  "forecast": {
+    "title": "Month forecast",
+    "projectedBalance": "Projected balance",
+    "range": "Estimated range",
+    "projectedIncome": "Projected income",
+    "projectedExpense": "Projected expense",
+    "drivers": "Top categories",
+    "empty": "No forecast for this month yet."
+  },
+  "summary": {
+    "title": "Monthly summary",
+    "priorMonth": "Prior month",
+    "currentMonth": "Current month",
+    "income": "Income",
+    "expense": "Expenses",
+    "balance": "Balance",
+    "netWorthChange": "Net worth change",
+    "topCategories": "Top categories",
+    "resend": "Resend",
+    "resending": "Resending…",
+    "resendSuccess": "Summary resent via Telegram/e-mail.",
+    "resendError": "Could not resend the summary.",
+    "empty": "Monthly summary not available yet."
+  },
+  "assistant": {
+    "title": "Assistant",
+    "subtitle": "Ask about your spending, budget, and net worth. The numbers come from your data.",
+    "newConversation": "New conversation",
+    "conversationsTitle": "Conversations",
+    "conversationsEmpty": "No conversations yet.",
+    "conversationsLoadError": "Could not load conversations.",
+    "rename": "Rename",
+    "renamePrompt": "New conversation title",
+    "renameSuccess": "Conversation renamed.",
+    "renameError": "Could not rename the conversation.",
+    "delete": "Delete",
+    "deleteConfirm": "Delete this conversation?",
+    "deleteSuccess": "Conversation deleted.",
+    "deleteError": "Could not delete the conversation.",
+    "threadEmpty": "Start the conversation by sending a message.",
+    "threadLoadError": "Could not load this conversation.",
+    "you": "You",
+    "assistantLabel": "Assistant",
+    "thinking": "Thinking…",
+    "toolUsed": "checked {{tool}}",
+    "placeholder": "Ask something about your finances…",
+    "send": "Send",
+    "streamError": "Could not finish the reply. Try again.",
+    "networkError": "Connection to the assistant failed. Try again.",
+    "action": {
+      "title": "Confirm action",
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "confirmAll": "Confirm all",
+      "confirmAllSuccess": "All pending actions were confirmed.",
+      "confirmAllError": "Could not confirm all actions.",
+      "confirmSuccess": "Action confirmed.",
+      "cancelSuccess": "Action cancelled.",
+      "confirmError": "Could not confirm the action.",
+      "cancelError": "Could not cancel the action.",
+      "alreadyDecided": "This action was already decided or has expired.",
+      "notFound": "Action not found."
+    }
+  }
+}

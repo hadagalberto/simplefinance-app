@@ -1,0 +1,27 @@
+{
+  "sections": {
+    "main": "Main",
+    "settings": "Settings"
+  },
+  "items": {
+    "dashboard": "Dashboard",
+    "transactions": "Transactions",
+    "accounts": "Accounts & Cards",
+    "budget": "Budget",
+    "investments": "Investments",
+    "netWorth": "Net Worth",
+    "recurring": "Recurring",
+    "goals": "Goals",
+    "reports": "Reports",
+    "assistant": "Assistant",
+    "settings": "Settings",
+    "connections": "Connections",
+    "categories": "Categories",
+    "rules": "Rules",
+    "alerts": "Alerts",
+    "preferences": "Preferences",
+    "ai": "AI",
+    "backup": "Backup",
+    "notifications": "Notifications"
+  }
+}

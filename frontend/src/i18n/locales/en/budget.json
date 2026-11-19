@@ -1,0 +1,52 @@
+{
+  "pageTitle": "Budget",
+  "loadError": "Couldn't load your budgets. Please try again.",
+  "deleteError": "Couldn't remove this budget. Please try again.",
+  "saveError": "Couldn't save this budget. Please try again.",
+  "saveSuccess": "Budget limit saved.",
+  "copyForwardBanner": "Budgets copied from {{month}}. Adjust as needed.",
+  "dismiss": "Dismiss",
+  "setLimit": "Set limit",
+  "overallCapLabel": "Overall monthly cap",
+  "overallCap": {
+    "noneSet": "No overall cap set for this month.",
+    "setCap": "Set overall cap"
+  },
+  "empty": {
+    "title": "No budgets set for {{month}} yet",
+    "subtitle": "Add a limit to a category to start tracking your spending."
+  },
+  "table": {
+    "category": "Category",
+    "progress": "Progress",
+    "spentOfLimit": "Spent / Limit",
+    "spentOfSeparator": " of ",
+    "remaining": "Remaining",
+    "projection": "Projection",
+    "state": "State",
+    "actions": "Actions"
+  },
+  "row": {
+    "editLimit": "Edit limit",
+    "remove": "Remove"
+  },
+  "addCategory": {
+    "placeholder": "Choose a category"
+  },
+  "state": {
+    "ok": "OK",
+    "attention": "Attention",
+    "exceeded": "Exceeded"
+  },
+  "dialog": {
+    "editTitle": "Edit budget limit",
+    "setTitle": "Set budget limit",
+    "monthlyLimit": "Monthly limit",
+    "amountPositiveError": "Enter an amount greater than zero",
+    "save": "Save limit"
+  },
+  "monthSwitcher": {
+    "previousMonth": "Previous month",
+    "nextMonth": "Next month"
+  }
+}

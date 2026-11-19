@@ -1,0 +1,54 @@
+{
+  "results": [
+    {
+      "id": "acc-bank-001",
+      "type": "BANK",
+      "subtype": "CHECKING_ACCOUNT",
+      "number": "0001/1234567-8",
+      "name": "Conta Corrente",
+      "marketingName": "Conta Facil",
+      "balance": 1500.75,
+      "itemId": "item-001",
+      "taxNumber": "***.***.***-**",
+      "owner": "Fulano de Tal",
+      "currencyCode": "BRL",
+      "bankData": {
+        "transferNumber": "0001/1234567-8",
+        "closingBalance": 1500.75,
+        "automaticallyInvestedBalance": 0,
+        "overdraftContractedLimit": 500,
+        "overdraftUsedLimit": 0,
+        "unarrangedOverdraftAmount": 0
+      },
+      "creditData": null
+    },
+    {
+      "id": "acc-credit-001",
+      "type": "CREDIT",
+      "subtype": "CREDIT_CARD",
+      "number": null,
+      "name": "Cartao de Credito",
+      "marketingName": "Cartao Platinum",
+      "balance": -350.20,
+      "itemId": "item-001",
+      "taxNumber": null,
+      "owner": "Fulano de Tal",
+      "currencyCode": "BRL",
+      "bankData": null,
+      "creditData": {
+        "level": "PLATINUM",
+        "brand": "VISA",
+        "brandAdditionalInfo": null,
+        "balanceCloseDate": "2026-07-05T00:00:00Z",
+        "balanceDueDate": "2026-07-12T00:00:00Z",
+        "availableCreditLimit": 4649.80,
+        "creditLimit": 5000.00,
+        "isLimitFlexible": false,
+        "balanceForeignCurrency": null,
+        "minimumPayment": 105.06,
+        "status": "ACTIVE",
+        "holderType": "MAIN"
+      }
+    }
+  ]
+}

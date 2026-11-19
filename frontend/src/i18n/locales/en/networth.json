@@ -1,0 +1,22 @@
+{
+  "pageTitle": "Net Worth",
+  "loadError": "Couldn't load your net worth. Please try again.",
+  "stat": {
+    "netWorth": "Net worth"
+  },
+  "composition": {
+    "accounts": "Accounts",
+    "investments": "Investments",
+    "cardDebt": "Card debt"
+  },
+  "chart": {
+    "title": "Net worth over time",
+    "valueLabel": "Net worth",
+    "emptyMessage": "Your net worth history starts today. Check back tomorrow to see how it evolves.",
+    "ranges": {
+      "30d": "30D",
+      "90d": "90D",
+      "365d": "365D"
+    }
+  }
+}

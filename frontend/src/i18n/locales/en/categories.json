@@ -1,0 +1,63 @@
+{
+  "page": {
+    "title": "Categories",
+    "addCategory": "Add category"
+  },
+  "row": {
+    "system": "System",
+    "showCategory": "Show category",
+    "hideCategory": "Hide category",
+    "actionsLabel": "Category actions"
+  },
+  "types": {
+    "Expense": "Expense",
+    "Income": "Income",
+    "Transfer": "Transfer"
+  },
+  "errors": {
+    "load": "Couldn't load your categories. Please try again.",
+    "hide": "Couldn't update this category. Please try again.",
+    "delete": "Couldn't delete this category. Please try again.",
+    "deleteInUse": "This category is still in use — reassign or hide it instead."
+  },
+  "empty": {
+    "title": "No categories yet",
+    "description": "Create your first category to start organizing transactions."
+  },
+  "deleteDialog": {
+    "title": "Delete this category?",
+    "body": "This permanently deletes \"{{name}}\". Categories still referenced by a transaction or rule can't be deleted — hide it instead.",
+    "confirm": "Delete category"
+  },
+  "toasts": {
+    "deleted": "Category deleted.",
+    "created": "Category created.",
+    "updated": "Category updated."
+  },
+  "dialog": {
+    "titleAdd": "Add category",
+    "titleEdit": "Edit category",
+    "descriptionAdd": "Create a new category or subcategory.",
+    "descriptionEdit": "Update this category’s name, type, icon, color, or parent.",
+    "fields": {
+      "name": "Name",
+      "type": "Type",
+      "parent": "Parent category",
+      "icon": "Icon",
+      "color": "Color"
+    },
+    "noParent": "None (top-level)",
+    "iconSearchPlaceholder": "Search icons...",
+    "noIconFound": "No icon found.",
+    "selectColor": "Select color {{color}}",
+    "errors": {
+      "nameRequired": "Name is required",
+      "nameTooLong": "Name is too long",
+      "iconRequired": "Choose an icon",
+      "colorRequired": "Choose a color"
+    },
+    "saveError": "Couldn't save this category. Please try again.",
+    "createCategory": "Create category",
+    "saveChanges": "Save changes"
+  }
+}

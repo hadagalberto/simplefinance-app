@@ -1,0 +1,474 @@
+// SimpleFinance — the authored app shell (layout, sidebar, topbar, footer).
+//
+// Styles the components in src/shell: a two-column grid from lg up (sidebar,
+// then topbar + page + footer), a single column below lg. Every rule reads the
+// --sf-* tokens, Bootstrap's --bs-* variables and Bootstrap's breakpoint
+// mixins, so both color modes work without a rebuild.
+
+$sf-sidebar-width: 15rem;
+$sf-sidebar-rail-width: 4.5rem;
+$sf-sidebar-mobile-width: 17.5rem;
+$sf-topbar-height: 3.75rem;
+
+// ---------------------------------------------------------------------------
+// Layout
+
+.sf-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-height: 100vh;
+
+  @include media-breakpoint-up(lg) {
+    grid-template-areas: "side main";
+    grid-template-columns: $sf-sidebar-width minmax(0, 1fr);
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition: grid-template-columns 0.2s ease;
+    }
+  }
+}
+
+.sf-shell__main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+
+  @include media-breakpoint-up(lg) {
+    grid-area: main;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Sidebar
+
+// The aside holds the inline panel from lg up. Bootstrap makes a responsive
+// offcanvas panel and its body transparent there, so the surface and the
+// border sit on the aside. Below lg the aside takes no space: the open menu
+// is a modal offcanvas rendered at the end of <body>.
+.sf-sidebar {
+  display: none;
+
+  @include media-breakpoint-up(lg) {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    grid-area: side;
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--sf-surface-raised);
+    border-right: var(--bs-border-width) solid var(--sf-border-subtle);
+
+    .sf-sidebar__panel {
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .offcanvas-body {
+      flex: 1 1 auto;
+      flex-direction: column;
+      min-height: 0;
+      overflow-y: auto;
+    }
+  }
+}
+
+// The modal offcanvas below lg.
+.sf-sidebar__panel {
+  --bs-offcanvas-width: #{$sf-sidebar-mobile-width};
+
+  .offcanvas-header {
+    padding-bottom: 0;
+  }
+
+  .offcanvas-body {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+}
+
+.sf-sidebar__brand {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  min-height: $sf-topbar-height;
+  padding: 0 1.5rem;
+}
+
+// The short wordmark only shows in the collapsed rail.
+.sf-sidebar__brand-short {
+  display: none;
+}
+
+.sf-sidebar__brand-full {
+  display: inline;
+}
+
+.sf-sidebar__nav {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding-bottom: 1.5rem;
+  overflow-y: auto;
+}
+
+// ---------------------------------------------------------------------------
+// Menu
+
+.sf-nav {
+  padding: 0 0.75rem;
+  margin: 0;
+  list-style: none;
+}
+
+.sf-nav--sub {
+  padding: 0 0 0 1.875rem;
+}
+
+.sf-nav__section + .sf-nav__section {
+  margin-top: 0.5rem;
+}
+
+.sf-nav__title {
+  padding: 0.75rem 1.5rem 0.375rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--bs-secondary-color);
+  text-transform: uppercase;
+}
+
+.sf-nav__link {
+  display: flex;
+  gap: 0.625rem;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font: inherit;
+  color: inherit;
+  text-align: start;
+  text-decoration: none;
+  background: transparent;
+  border: 0;
+  border-radius: var(--bs-border-radius);
+
+  &:hover,
+  &:focus-visible {
+    color: var(--bs-emphasis-color);
+    background-color: var(--bs-tertiary-bg);
+  }
+
+  &.is-active {
+    font-weight: 600;
+    color: var(--bs-primary-text-emphasis);
+    background-color: var(--bs-primary-bg-subtle);
+  }
+}
+
+// A group toggle is a <button>; .sf-nav__link above resets it to look like a link.
+.sf-nav__group-toggle {
+  cursor: pointer;
+
+  // One of the group's links is the current page.
+  &.is-active-parent {
+    color: var(--bs-primary-text-emphasis);
+  }
+}
+
+.sf-nav__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  justify-content: center;
+  width: 1.25rem;
+  font-size: 1.125rem;
+  line-height: 1;
+}
+
+.sf-nav__label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Chevron drawn with borders; points down while its group is open.
+.sf-nav__chevron {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-right: 0.25rem;
+  border-right: 1.5px solid currentcolor;
+  border-bottom: 1.5px solid currentcolor;
+  transform: rotate(-45deg);
+
+  [aria-expanded="true"] > & {
+    transform: rotate(45deg);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: transform 0.15s ease;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Collapsed rail (lg and up only; below lg the menu is always the offcanvas)
+
+.sf-shell--collapsed {
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: $sf-sidebar-rail-width minmax(0, 1fr);
+
+    .sf-sidebar__brand {
+      justify-content: center;
+      padding: 0;
+    }
+
+    .sf-sidebar__brand-full {
+      display: none;
+    }
+
+    .sf-sidebar__brand-short {
+      display: inline;
+    }
+
+    // Titles, labels and chevrons need the full width. The settings links
+    // have no icons, so their sub-list would only show blank rows.
+    .sf-nav__title,
+    .sf-nav__label,
+    .sf-nav__chevron,
+    .sf-nav--sub {
+      display: none;
+    }
+
+    .sf-nav__section + .sf-nav__section {
+      padding-top: 0.5rem;
+      border-top: var(--bs-border-width) solid var(--sf-border-subtle);
+    }
+
+    .sf-nav__link {
+      justify-content: center;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Topbar
+
+.sf-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  min-height: $sf-topbar-height;
+  padding: 0.5rem 1.5rem;
+  background-color: var(--sf-surface-raised);
+  border-bottom: var(--bs-border-width) solid var(--sf-border-subtle);
+}
+
+.sf-topbar__start,
+.sf-topbar__end {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+// Menu button: collapses the sidebar from lg up, opens the offcanvas below.
+.sf-topbar__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--bs-body-color);
+  background: transparent;
+  border: 0;
+  border-radius: var(--bs-border-radius);
+
+  &:hover,
+  &:focus-visible {
+    color: var(--bs-emphasis-color);
+    background-color: var(--bs-tertiary-bg);
+  }
+}
+
+// Shared icon button for topbar controls (theme, bell, fullscreen, language,
+// user). Relative so the bell's unread badge can sit on its corner.
+.sf-topbar__btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--bs-body-color);
+  background: transparent;
+  border: 0;
+  border-radius: var(--bs-border-radius);
+
+  &:hover,
+  &:focus-visible,
+  &.show {
+    color: var(--bs-emphasis-color);
+    background-color: var(--bs-tertiary-bg);
+  }
+
+  &:focus-visible {
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem var(--bs-focus-ring-color);
+  }
+
+  &.dropdown-toggle::after {
+    display: none;
+  }
+}
+
+// Theme menu entries: icon then label.
+.sf-theme-menu__item {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+// Language toggle: flag then the short language code, so it is wider than
+// the square icon buttons and uses a text-sized font.
+.sf-topbar__lang {
+  gap: 0.375rem;
+  width: auto;
+  padding: 0 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+// Emoji flag; some platforms draw it as the two region letters instead.
+.sf-topbar__flag {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+// Language menu entries: flag then the language name.
+.sf-lang-menu__item {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+// Account toggle: icon, then the user's name and a chevron from lg up.
+.sf-topbar__user {
+  gap: 0.375rem;
+  width: auto;
+  padding: 0 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.sf-topbar__user-icon {
+  flex-shrink: 0;
+  font-size: 1.25rem;
+}
+
+.sf-topbar__user-name {
+  max-width: 10rem;
+}
+
+.sf-topbar__chevron {
+  font-size: 0.875rem;
+}
+
+// Account menu entries: icon then label.
+.sf-user-menu__item {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+// Wrapper around a topbar control that brings its own dropdown (the bell).
+.sf-topbar__item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.sf-topbar__icon {
+  display: inline-flex;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+// Unread count on the bell, pinned to the button's top-right corner.
+.sf-topbar__badge {
+  position: absolute;
+  top: 0.2rem;
+  right: 0.1rem;
+  min-width: 1.125rem;
+  font-size: 0.625rem;
+}
+
+// One notification row in the bell's dropdown.
+.sf-notification {
+  display: block;
+  padding: 0.75rem 1rem;
+  white-space: normal;
+  border-bottom: var(--bs-border-width) solid var(--sf-border-subtle);
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--bs-tertiary-bg);
+  }
+}
+
+// Bell dropdown item list: scrolls natively in a fixed-height area, without
+// scrolling the page behind it once the end is reached.
+.sf-notification__list {
+  max-height: 300px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+
+// "View all" link at the bottom of the bell's dropdown.
+.sf-notification__footer {
+  display: block;
+  padding: 0.5rem 1rem;
+}
+
+.sf-wordmark {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--bs-primary-text-emphasis);
+  text-decoration: none;
+  white-space: nowrap;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--bs-primary-text-emphasis);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Content and footer
+
+// No top padding: every screen opens with the page header, which already
+// carries its own (see .sf-page-header in _components.scss).
+.sf-content {
+  flex: 1 0 auto;
+  padding-bottom: 1.5rem;
+}
+
+.sf-footer {
+  padding: 1rem 1.5rem;
+  font-size: 0.8125rem;
+  color: var(--bs-secondary-color);
+  border-top: var(--bs-border-width) solid var(--sf-border-subtle);
+}

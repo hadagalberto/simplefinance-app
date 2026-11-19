@@ -1,0 +1,22 @@
+{
+  "pageTitle": "Patrimônio Líquido",
+  "loadError": "Não foi possível carregar seu patrimônio líquido. Tente novamente.",
+  "stat": {
+    "netWorth": "Patrimônio líquido"
+  },
+  "composition": {
+    "accounts": "Contas",
+    "investments": "Investimentos",
+    "cardDebt": "Dívida no cartão"
+  },
+  "chart": {
+    "title": "Patrimônio líquido ao longo do tempo",
+    "valueLabel": "Patrimônio líquido",
+    "emptyMessage": "Seu histórico de patrimônio líquido começa hoje. Volte amanhã para ver como ele evolui.",
+    "ranges": {
+      "30d": "30D",
+      "90d": "90D",
+      "365d": "365D"
+    }
+  }
+}

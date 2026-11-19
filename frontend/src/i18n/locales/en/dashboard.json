@@ -1,0 +1,58 @@
+{
+  "pageTitle": "Dashboard",
+  "loadError": "Couldn't load your dashboard. Please try again.",
+  "stat": {
+    "netWorth": "Net worth",
+    "totalBalance": "Total balance",
+    "cardDebt": "Card debt",
+    "incomeThisMonth": "Income this month",
+    "expensesThisMonth": "Expenses this month",
+    "netThisMonth": "Net this month"
+  },
+  "chart": {
+    "spendingByCategory": {
+      "title": "Spending by category",
+      "emptyMessage": "No spending recorded for this period yet.",
+      "uncategorized": "Uncategorized",
+      "others": "Others"
+    },
+    "netWorthOverTime": {
+      "title": "Net worth over time",
+      "valueLabel": "Net worth",
+      "emptyMessage": "Your net worth history starts today. Check back tomorrow to see how it evolves.",
+      "ranges": {
+        "6m": "6M",
+        "12m": "12M"
+      }
+    },
+    "incomeVsExpenses": {
+      "title": "Income vs. expenses"
+    },
+    "budgetsAtRisk": {
+      "title": "Budgets at risk",
+      "viewAll": "View all budgets",
+      "emptyMessage": "Nothing at risk right now — every budget is on track."
+    },
+    "upcomingDueDates": {
+      "title": "Upcoming due dates",
+      "emptyMessage": "No upcoming due dates in the next 7 days."
+    }
+  },
+  "period": {
+    "thisMonth": "This month",
+    "lastMonth": "Last month",
+    "customRange": "Custom range",
+    "from": "From",
+    "to": "To",
+    "apply": "Apply"
+  },
+  "atRiskCard": {
+    "projected": "Projected: {{percent}}%",
+    "viewBudget": "View budget"
+  },
+  "upcomingDueDate": {
+    "due": "Due {{date}}",
+    "dueToday": "Due today",
+    "daysUntil": "{{count}}d"
+  }
+}

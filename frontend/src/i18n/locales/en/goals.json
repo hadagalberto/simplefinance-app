@@ -1,0 +1,54 @@
+{
+  "pageTitle": "Goals",
+  "newGoal": "New goal",
+  "loadError": "Couldn't load your goals. Please try again.",
+  "updateError": "Couldn't update this goal. Please try again.",
+  "saveError": "Couldn't save this goal. Please try again.",
+  "retry": "Retry",
+  "status": {
+    "completed": "Completed",
+    "archived": "Archived"
+  },
+  "empty": {
+    "title": "No savings goals yet",
+    "description": "No savings goals yet. Create one to start tracking progress.",
+    "createGoal": "Create a goal"
+  },
+  "toasts": {
+    "goalUpdated": "Goal updated.",
+    "goalCreated": "Goal created."
+  },
+  "card": {
+    "actionsAriaLabel": "Goal actions",
+    "edit": "Edit",
+    "updateProgress": "Update progress",
+    "archive": "Archive",
+    "save": "Save",
+    "cancel": "Cancel",
+    "remaining": "remaining",
+    "perMonthNeeded": "/month needed",
+    "toHitDate": "to hit {{date}}",
+    "linkedTo": "Linked to {{name}}"
+  },
+  "dialog": {
+    "editTitle": "Edit goal",
+    "newTitle": "New goal",
+    "editDescription": "Update this goal's name, target, linked source, icon, or color.",
+    "createDescription": "Create a new savings goal.",
+    "nameLabel": "Name",
+    "targetAmountLabel": "Target amount",
+    "targetDateLabel": "Target date",
+    "linkedSourceLabel": "Linked account/investment",
+    "none": "None",
+    "accountOption": "Account: {{name}}",
+    "investmentOption": "Investment: {{name}}",
+    "iconLabel": "Icon",
+    "iconSearchPlaceholder": "Search icons...",
+    "noIconFound": "No icon found.",
+    "colorLabel": "Color",
+    "selectColorAria": "Select color {{color}}",
+    "cancel": "Cancel",
+    "saveChanges": "Save changes",
+    "createGoal": "Create goal"
+  }
+}

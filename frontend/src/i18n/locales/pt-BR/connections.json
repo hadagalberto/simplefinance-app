@@ -1,0 +1,58 @@
+{
+  "title": "Conexões",
+  "connect": "Conectar uma instituição",
+  "fallbackName": "Conexão",
+  "loadError": "Não foi possível carregar suas conexões. Tente novamente.",
+  "status": {
+    "upToDate": "Atualizado",
+    "syncing": "Sincronizando…",
+    "actionNeeded": "Ação necessária",
+    "reconnectNeeded": "Reconexão necessária",
+    "syncIncomplete": "Sincronização incompleta",
+    "partialSyncIssue": "Problema parcial na sincronização"
+  },
+  "actions": {
+    "syncNow": "Sincronizar agora",
+    "viewDetails": "Ver detalhes",
+    "completeVerification": "Concluir verificação",
+    "reconnect": "Reconectar",
+    "retrySync": "Tentar sincronizar novamente",
+    "removeConnection": "Remover conexão",
+    "connectionActions": "Ações da conexão"
+  },
+  "lastSync": {
+    "never": "Nunca sincronizado",
+    "label": "Última sincronização em {{date}}"
+  },
+  "empty": {
+    "title": "Nenhuma conexão ainda",
+    "description": "Conecte seu primeiro banco ou cartão para começar a importar dados."
+  },
+  "details": {
+    "title": "Detalhes da conexão",
+    "empty": "Nenhum detalhe adicional disponível."
+  },
+  "rename": {
+    "title": "Renomear conexão",
+    "nickname": "Apelido",
+    "placeholder": "ex.: Nubank PJ",
+    "helper": "Dê um nome a esta conexão para diferenciá-la de outras do mesmo banco. Deixe em branco para usar o nome da instituição.",
+    "success": "Conexão renomeada.",
+    "error": "Não foi possível renomear esta conexão. Tente novamente."
+  },
+  "remove": {
+    "title": "Remover esta conexão?",
+    "body": "Isso desconecta {{name}} do Pluggy e oculta suas contas, cartões e histórico de transações do SimpleFinance. Isso não pode ser desfeito por aqui — você precisará reconectar e sincronizar tudo novamente do zero.",
+    "fallbackInstitution": "esta instituição",
+    "success": "{{name}} foi removida.",
+    "error": "Não foi possível remover esta conexão. Tente novamente."
+  },
+  "toast": {
+    "syncStarted": "Sincronização iniciada.",
+    "syncCooldown": "Uma sincronização acabou de ser iniciada para esta conexão. Aguarde um pouco antes de tentar novamente.",
+    "syncError": "Não foi possível iniciar a sincronização. Tente novamente.",
+    "duplicate": "Esta instituição já está conectada.",
+    "registerError": "Não foi possível concluir a conexão com esta instituição. Tente novamente.",
+    "verificationSubmitted": "Verificação enviada — sincronizando…"
+  }
+}

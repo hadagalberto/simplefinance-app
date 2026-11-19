@@ -1,0 +1,27 @@
+{
+  "sections": {
+    "main": "Principal",
+    "settings": "Configurações"
+  },
+  "items": {
+    "dashboard": "Dashboard",
+    "transactions": "Transações",
+    "accounts": "Contas & Cartões",
+    "budget": "Orçamento",
+    "investments": "Investimentos",
+    "netWorth": "Patrimônio",
+    "recurring": "Recorrentes",
+    "goals": "Metas",
+    "reports": "Relatórios",
+    "assistant": "Assistente",
+    "settings": "Configurações",
+    "connections": "Conexões",
+    "categories": "Categorias",
+    "rules": "Regras",
+    "alerts": "Alertas",
+    "preferences": "Preferências",
+    "ai": "IA",
+    "backup": "Backup",
+    "notifications": "Notificações"
+  }
+}

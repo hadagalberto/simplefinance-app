@@ -1,0 +1,23 @@
+{
+  "bell": {
+    "title": "Notificações",
+    "empty": "Nenhuma notificação ainda",
+    "viewAll": "Ver todas"
+  },
+  "channels": {
+    "Telegram": "Telegram",
+    "Email": "E-mail",
+    "Both": "Ambos"
+  },
+  "page": {
+    "title": "Notificações",
+    "markAllRead": "Marcar todas como lidas",
+    "errors": {
+      "load": "Não foi possível carregar suas notificações. Tente novamente."
+    },
+    "empty": {
+      "title": "Nenhuma notificação ainda",
+      "description": "Alertas disparados pelas suas regras de orçamento, saldo, fatura e metas aparecerão aqui."
+    }
+  }
+}

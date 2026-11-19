@@ -1,0 +1,33 @@
+{
+  "app": {
+    "name": "SimpleFinance"
+  },
+  "actions": {
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "close": "Fechar",
+    "retry": "Tentar novamente",
+    "delete": "Excluir",
+    "edit": "Editar",
+    "rename": "Renomear"
+  },
+  "common": {
+    "loading": "Carregando...",
+    "empty": "Nada para mostrar."
+  },
+  "validation": {
+    "nameRequired": "Nome é obrigatório",
+    "nameTooLong": "Nome muito longo",
+    "emailRequired": "E-mail é obrigatório",
+    "emailInvalid": "Informe um e-mail válido",
+    "passwordMin": "A senha deve ter pelo menos 8 caracteres",
+    "passwordRequired": "Senha é obrigatória",
+    "codeRequired": "Informe um código",
+    "currentPasswordRequired": "Senha atual é obrigatória",
+    "confirmPasswordRequired": "Confirme a nova senha",
+    "passwordsMismatch": "As senhas não conferem",
+    "amountPositive": "Informe um valor maior que zero",
+    "iconRequired": "Escolha um ícone",
+    "colorRequired": "Escolha uma cor"
+  }
+}

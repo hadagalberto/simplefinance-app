@@ -1,0 +1,27 @@
+{
+  "loadError": "Não foi possível carregar suas contas. Tente novamente.",
+  "updateError": "Não foi possível atualizar esta conta. Tente novamente.",
+  "sections": {
+    "bankAccounts": "Contas Bancárias",
+    "creditCards": "Cartões de Crédito"
+  },
+  "hideToggle": {
+    "label": "Ocultar dos totais",
+    "ariaLabel": "Ocultar dos totais",
+    "hiddenToast": "Conta ocultada dos totais e do painel.",
+    "shownToast": "A conta agora está incluída nos totais."
+  },
+  "creditCard": {
+    "currentInvoice": "Fatura atual",
+    "usedOf": "usados de",
+    "available": "Disponível",
+    "limit": "Limite",
+    "closes": "Fecha em {{date}}",
+    "due": "Vence em {{date}}"
+  },
+  "empty": {
+    "title": "Nenhuma conta conectada ainda",
+    "description": "Conecte um banco ou cartão para ver seus saldos aqui.",
+    "connect": "Conectar uma instituição"
+  }
+}

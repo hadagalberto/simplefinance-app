@@ -1,0 +1,27 @@
+{
+  "loadError": "Couldn't load your accounts. Please try again.",
+  "updateError": "Couldn't update this account. Please try again.",
+  "sections": {
+    "bankAccounts": "Bank Accounts",
+    "creditCards": "Credit Cards"
+  },
+  "hideToggle": {
+    "label": "Hide from totals",
+    "ariaLabel": "Hide from totals",
+    "hiddenToast": "Account hidden from totals and dashboard.",
+    "shownToast": "Account is now included in totals."
+  },
+  "creditCard": {
+    "currentInvoice": "Current invoice",
+    "usedOf": "used of",
+    "available": "Available",
+    "limit": "Limit",
+    "closes": "Closes {{date}}",
+    "due": "Due {{date}}"
+  },
+  "empty": {
+    "title": "No accounts connected yet",
+    "description": "Connect a bank or card to see your balances here.",
+    "connect": "Connect an institution"
+  }
+}

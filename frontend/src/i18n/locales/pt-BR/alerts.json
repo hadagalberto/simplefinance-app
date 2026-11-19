@@ -1,0 +1,96 @@
+{
+  "page": {
+    "title": "Regras de alerta",
+    "newRule": "Nova regra"
+  },
+  "types": {
+    "BudgetThreshold": "Limite de orçamento",
+    "LowBalance": "Saldo baixo",
+    "InvoiceDue": "Fatura a vencer",
+    "LargeTransaction": "Transação de valor alto",
+    "NewRecurring": "Nova cobrança recorrente",
+    "SyncError": "Erro de sincronização",
+    "GoalReached": "Meta atingida"
+  },
+  "summary": {
+    "categoryLabel": "Categoria: {{name}}",
+    "allCategories": "Todas as categorias",
+    "accountLabel": "Conta: {{name}}",
+    "allAccounts": "Todas as contas",
+    "threshold": "Limite: {{value}}",
+    "daysBefore_one": "{{count}} dia antes do vencimento",
+    "daysBefore_other": "{{count}} dias antes do vencimento",
+    "empty": "—"
+  },
+  "empty": {
+    "title": "Nenhuma regra de alerta ainda",
+    "description": "Crie uma regra para ser notificado sobre limites de orçamento, saldo baixo e muito mais.",
+    "cta": "Nova regra"
+  },
+  "errors": {
+    "load": "Não foi possível carregar suas regras de alerta. Tente novamente.",
+    "toggle": "Não foi possível atualizar esta regra. Tente novamente.",
+    "delete": "Não foi possível excluir esta regra. Tente novamente.",
+    "save": "Não foi possível salvar esta regra. Tente novamente."
+  },
+  "toasts": {
+    "deleted": "Regra de alerta excluída.",
+    "updated": "Regra de alerta atualizada.",
+    "created": "Regra de alerta criada."
+  },
+  "table": {
+    "type": "Tipo",
+    "scope": "Escopo",
+    "channel": "Canal",
+    "active": "Ativa",
+    "activate": "Ativar regra",
+    "deactivate": "Desativar regra",
+    "actions": "Ações da regra",
+    "edit": "Editar",
+    "delete": "Excluir"
+  },
+  "deleteModal": {
+    "title": "Excluir esta regra de alerta?",
+    "body": "Isso exclui permanentemente esta regra de alerta. Você deixará de receber notificações para ela.",
+    "confirm": "Excluir regra"
+  },
+  "form": {
+    "titleNew": "Nova regra de alerta",
+    "titleEdit": "Editar regra de alerta",
+    "subtitleNew": "Seja notificado quando uma condição for atendida.",
+    "subtitleEdit": "Atualize o escopo, o limite ou o canal de notificação desta regra.",
+    "typeLabel": "Tipo",
+    "thresholdLabel": "Limite",
+    "thresholdError": "Informe um valor positivo",
+    "daysBeforeLabel": "Dias antes do vencimento",
+    "daysBeforeError": "Informe um número de dias entre 1 e 90",
+    "categoryLabel": "Categoria",
+    "categoryPlaceholder": "Todas as categorias",
+    "accountLabel": "Conta",
+    "accountPlaceholder": "Todas as contas",
+    "channelLabel": "Canal",
+    "submitNew": "Criar regra",
+    "submitEdit": "Salvar alterações"
+  },
+  "channels": {
+    "Telegram": "Telegram",
+    "Email": "E-mail",
+    "Both": "Ambos"
+  },
+  "channelsCard": {
+    "title": "Canais de notificação",
+    "description": "Configure o Telegram e/ou o e-mail por variáveis de ambiente e depois confirme o envio com um teste.",
+    "configured": "Configurado",
+    "notConfigured": "Não configurado",
+    "sendTest": "Enviar teste",
+    "sending": "Enviando…",
+    "setupTooltip": "Configure o {{channel}} pelas variáveis de ambiente primeiro.",
+    "errors": {
+      "load": "Não foi possível carregar o status dos canais. Tente novamente.",
+      "test": "Não foi possível enviar a notificação de teste. Tente novamente."
+    },
+    "toasts": {
+      "testSent": "Notificação de teste enviada."
+    }
+  }
+}

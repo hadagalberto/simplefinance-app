@@ -1,0 +1,52 @@
+{
+  "pageTitle": "Orçamento",
+  "loadError": "Não foi possível carregar seus orçamentos. Tente novamente.",
+  "deleteError": "Não foi possível remover este orçamento. Tente novamente.",
+  "saveError": "Não foi possível salvar este orçamento. Tente novamente.",
+  "saveSuccess": "Limite do orçamento salvo.",
+  "copyForwardBanner": "Orçamentos copiados de {{month}}. Ajuste conforme necessário.",
+  "dismiss": "Dispensar",
+  "setLimit": "Definir limite",
+  "overallCapLabel": "Teto mensal geral",
+  "overallCap": {
+    "noneSet": "Nenhum teto geral definido para este mês.",
+    "setCap": "Definir teto geral"
+  },
+  "empty": {
+    "title": "Nenhum orçamento definido para {{month}} ainda",
+    "subtitle": "Adicione um limite a uma categoria para começar a acompanhar seus gastos."
+  },
+  "table": {
+    "category": "Categoria",
+    "progress": "Progresso",
+    "spentOfLimit": "Gasto / Limite",
+    "spentOfSeparator": " de ",
+    "remaining": "Restante",
+    "projection": "Projeção",
+    "state": "Estado",
+    "actions": "Ações"
+  },
+  "row": {
+    "editLimit": "Editar limite",
+    "remove": "Remover"
+  },
+  "addCategory": {
+    "placeholder": "Escolha uma categoria"
+  },
+  "state": {
+    "ok": "OK",
+    "attention": "Atenção",
+    "exceeded": "Excedido"
+  },
+  "dialog": {
+    "editTitle": "Editar limite do orçamento",
+    "setTitle": "Definir limite do orçamento",
+    "monthlyLimit": "Limite mensal",
+    "amountPositiveError": "Informe um valor maior que zero",
+    "save": "Salvar limite"
+  },
+  "monthSwitcher": {
+    "previousMonth": "Mês anterior",
+    "nextMonth": "Próximo mês"
+  }
+}

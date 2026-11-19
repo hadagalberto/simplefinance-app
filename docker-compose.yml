@@ -1,0 +1,65 @@
+services:
+  postgres:
+    # pgvector/pgvector:pg17 = official Postgres 17 + pgvector extension. Same PG17 major and
+    # PGDATA layout as the stock PG17 image, so the existing pgdata volume works unchanged (no dump/restore).
+    # Required so migrate-on-start's CREATE EXTENSION vector (15-02) does not crash the API.
+    image: pgvector/pgvector:pg17
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    ports:
+      # Bound to loopback only (never 0.0.0.0) -- exists purely so 02-04's ConcurrentSyncTests
+      # (Postgres advisory locks require a real Postgres connection, not EF InMemory) can reach
+      # this container from the host. Never exposed to the network; safe in a VPS deployment too.
+      - "127.0.0.1:5433:5432"
+
+  api:
+    build:
+      context: .
+      dockerfile: docker/api.Dockerfile
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      ConnectionStrings__Default: ${ConnectionStrings__Default}
+      ASPNETCORE_URLS: http://+:8080
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+      Jwt__SigningKey: ${Jwt__SigningKey}
+      Jwt__AccessTokenMinutes: ${Jwt__AccessTokenMinutes}
+      Jwt__RefreshTokenDays: ${Jwt__RefreshTokenDays}
+      Totp__EncryptionKey: ${Totp__EncryptionKey}
+      # 02-05: without these, WebhookRegistrationStartupTask silently no-ops (empty
+      # WebhookPublicUrl) and PluggyClient can never authenticate -- previously missing here even
+      # though 02-02/.env.example already documented them, so a real deploy's .env values never
+      # actually reached the container.
+      Pluggy__ClientId: ${Pluggy__ClientId}
+      Pluggy__ClientSecret: ${Pluggy__ClientSecret}
+      Pluggy__Environment: ${Pluggy__Environment}
+      Pluggy__WebhookPublicUrl: ${Pluggy__WebhookPublicUrl}
+      Pluggy__WebhookSecretValue: ${Pluggy__WebhookSecretValue}
+    ports:
+      - "5080:8080"
+
+  # React SPA (Vite build served by nginx, see frontend/Dockerfile).
+  front:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL}
+    restart: unless-stopped
+    ports:
+      - "5173:80"
+
+volumes:
+  pgdata:

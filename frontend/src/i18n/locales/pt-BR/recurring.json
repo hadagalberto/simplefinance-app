@@ -1,0 +1,32 @@
+{
+  "pageTitle": "Recorrentes",
+  "loadError": "Não foi possível carregar as despesas recorrentes. Tente novamente.",
+  "updateError": "Não foi possível atualizar esta despesa recorrente. Tente novamente.",
+  "retry": "Tentar novamente",
+  "statTile": {
+    "monthlyCommittedCost": "Custo mensal comprometido"
+  },
+  "empty": {
+    "title": "Nenhuma despesa recorrente ainda",
+    "description": "Nenhuma despesa recorrente detectada ainda — volte a checar depois que suas contas sincronizarem alguns meses de histórico."
+  },
+  "table": {
+    "name": "Nome",
+    "category": "Categoria",
+    "avgAmount": "Valor médio",
+    "frequency": "Frequência",
+    "lastCharge": "Última cobrança",
+    "nextEstimated": "Próxima estimada",
+    "yearlyTotal": "Total anual"
+  },
+  "row": {
+    "newBadge": "Novo",
+    "priceIncreaseBadge": "Aumento de preço",
+    "uncategorized": "Sem categoria",
+    "actionsAriaLabel": "Ações da despesa recorrente",
+    "markAsSubscription": "Marcar como assinatura",
+    "unmarkAsSubscription": "Desmarcar como assinatura",
+    "markActive": "Marcar como ativa",
+    "markCancelled": "Marcar como cancelada"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "title": "General",
+  "subtitle": "Timezone, base currency, sync schedule, and theme.",
+  "timezone": {
+    "label": "Timezone",
+    "placeholder": "America/Sao_Paulo",
+    "helper": "e.g. America/Sao_Paulo",
+    "required": "Timezone is required"
+  },
+  "baseCurrency": {
+    "label": "Base currency",
+    "placeholder": "BRL",
+    "helper": "Currently display-only — SimpleFinance does not convert between currencies.",
+    "invalid": "Enter a 3-letter currency code"
+  },
+  "syncCron": {
+    "label": "Sync schedule",
+    "placeholder": "0 6,18 * * *",
+    "helper": "Cron expression for the twice-daily account sync, e.g. 0 6,18 * * *",
+    "required": "Cron expression is required"
+  },
+  "defaultTheme": {
+    "label": "Default theme",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "save": "Save preferences",
+  "loadError": "Couldn't load your preferences. Please try again.",
+  "retry": "Retry",
+  "saveError": "Couldn't save your preferences. Please try again.",
+  "saveSuccess": "Preferences updated."
+}

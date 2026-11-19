@@ -1,0 +1,27 @@
+{
+  "pageTitle": "Investimentos",
+  "loadError": "Não foi possível carregar seus investimentos. Tente novamente.",
+  "stats": {
+    "totalInvested": "Total investido",
+    "totalCurrentValue": "Valor total atual",
+    "totalGain": "Ganho total"
+  },
+  "charts": {
+    "byType": "Por tipo",
+    "byIssuer": "Por emissor",
+    "emptyMessage": "Nenhum investimento sincronizado ainda."
+  },
+  "table": {
+    "name": "Nome",
+    "institution": "Instituição",
+    "type": "Tipo",
+    "value": "Valor",
+    "invested": "Investido",
+    "gain": "Ganho",
+    "dueDate": "Vencimento"
+  },
+  "empty": {
+    "title": "Nenhum investimento ainda",
+    "description": "Conecte uma conta com investimentos para vê-los aqui."
+  }
+}

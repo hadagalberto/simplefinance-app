@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="10.0.4" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Disables cross-collection/assembly parallelization: WebApplicationFactory<Program>'s
+         HostFactoryResolver intermittently throws "The entry point exited without ever building
+         an IHost" when multiple factories boot concurrently (a known upstream race, not specific
+         to this project) — every AuthApiFactory-backed test class starts a full host, so this
+         must run serially. -->
+    <None Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Synthetic sandbox-shaped Pluggy fixtures (02-03): copied to output so tests can read
+         them via AppContext.BaseDirectory without a live Pluggy sandbox connection. -->
+    <None Include="Pluggy\Fixtures\*.json" CopyToOutputDirectory="PreserveNewest" />
+    <!-- ProviderTransaction-shaped fixtures (02-04) driving the PENDING->POSTED ID-instability
+         fallback-match tests. -->
+    <None Include="Sync\Fixtures\*.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\SimpleFinance.Application\SimpleFinance.Application.csproj" />
+    <ProjectReference Include="..\..\src\SimpleFinance.Domain\SimpleFinance.Domain.csproj" />
+    <ProjectReference Include="..\..\src\SimpleFinance.Infrastructure\SimpleFinance.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\SimpleFinance.Api\SimpleFinance.Api.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,54 @@
+{
+  "pageTitle": "Metas",
+  "newGoal": "Nova meta",
+  "loadError": "Não foi possível carregar suas metas. Tente novamente.",
+  "updateError": "Não foi possível atualizar esta meta. Tente novamente.",
+  "saveError": "Não foi possível salvar esta meta. Tente novamente.",
+  "retry": "Tentar novamente",
+  "status": {
+    "completed": "Concluída",
+    "archived": "Arquivada"
+  },
+  "empty": {
+    "title": "Nenhuma meta de economia ainda",
+    "description": "Nenhuma meta de economia ainda. Crie uma para começar a acompanhar o progresso.",
+    "createGoal": "Criar uma meta"
+  },
+  "toasts": {
+    "goalUpdated": "Meta atualizada.",
+    "goalCreated": "Meta criada."
+  },
+  "card": {
+    "actionsAriaLabel": "Ações da meta",
+    "edit": "Editar",
+    "updateProgress": "Atualizar progresso",
+    "archive": "Arquivar",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "remaining": "restante",
+    "perMonthNeeded": "/mês necessário",
+    "toHitDate": "para atingir em {{date}}",
+    "linkedTo": "Vinculada a {{name}}"
+  },
+  "dialog": {
+    "editTitle": "Editar meta",
+    "newTitle": "Nova meta",
+    "editDescription": "Atualize o nome, valor-alvo, origem vinculada, ícone ou cor desta meta.",
+    "createDescription": "Crie uma nova meta de economia.",
+    "nameLabel": "Nome",
+    "targetAmountLabel": "Valor-alvo",
+    "targetDateLabel": "Data-alvo",
+    "linkedSourceLabel": "Conta/investimento vinculado",
+    "none": "Nenhum",
+    "accountOption": "Conta: {{name}}",
+    "investmentOption": "Investimento: {{name}}",
+    "iconLabel": "Ícone",
+    "iconSearchPlaceholder": "Buscar ícones...",
+    "noIconFound": "Nenhum ícone encontrado.",
+    "colorLabel": "Cor",
+    "selectColorAria": "Selecionar cor {{color}}",
+    "cancel": "Cancelar",
+    "saveChanges": "Salvar alterações",
+    "createGoal": "Criar meta"
+  }
+}

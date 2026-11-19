@@ -1,0 +1,19 @@
+// SimpleFinance — application stylesheet.
+//
+// Authored for SimpleFinance on Bootstrap 5 from npm. Import order:
+//   1. Bootstrap functions — needed by our variable overrides (color math, to-rgb).
+//   2. Our variables — palette + overrides, declared before Bootstrap's !default values.
+//   3. Bootstrap — full framework (reboot, grid, components, utilities, color modes).
+//   4. Our tokens — --sf-* custom properties and financial utilities, after Bootstrap
+//      so they can rely on its output and win on equal specificity.
+// Further authored partials are appended after tokens.
+
+@import "bootstrap/scss/functions";
+@import "variables";
+@import "bootstrap/scss/bootstrap";
+@import "tokens";
+@import "utilities";
+@import "components";
+@import "vendor";
+@import "auth";
+@import "shell";

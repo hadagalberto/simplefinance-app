@@ -1,0 +1,13 @@
+{
+  "download": {
+    "title": "Baixar backup",
+    "description": "Baixe uma cópia completa dos seus dados financeiros para guardar em segurança.",
+    "button": "Baixar backup",
+    "downloading": "Baixando…",
+    "error": "Não foi possível baixar seu backup. Tente novamente."
+  },
+  "fullBackup": {
+    "title": "Backup completo do banco de dados",
+    "description": "Para um backup completo em nível de infraestrutura, incluindo as configurações do próprio app e os dados de autenticação, execute este comando a partir do servidor que hospeda o SimpleFinance."
+  }
+}

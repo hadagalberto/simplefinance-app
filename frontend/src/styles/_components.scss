@@ -1,0 +1,190 @@
+// SimpleFinance — shared-component classes and dark-mode remaps.
+//
+// Styles the classes rendered by the shared components in src/components
+// (page header, tables, form inputs) and by card headers and dropdowns in the
+// feature screens. The second half fixes Bootstrap utilities that keep their
+// light-mode colors in dark mode (bg-light, border-light, text-dark, btn-light)
+// and moves theme-color text in dark mode to Bootstrap's *-text-emphasis
+// colors, which the contrast gate (scripts/check-style-contrast.mjs) measures
+// on card and raised surfaces.
+
+$sf-theme-text-colors: primary, secondary, success, danger, warning, info;
+
+// ---------------------------------------------------------------------------
+// Page header (components/PageHeader.tsx, opens every signed-in screen)
+//
+// Heading and breadcrumb sit on the left, actions on the right. On a narrow
+// screen the actions drop below and the breadcrumb wraps under the heading.
+
+.sf-page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding-block: 1.25rem 1rem;
+}
+
+.sf-page-header__text {
+  min-width: 0;
+}
+
+.sf-page-header__title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--bs-emphasis-color);
+}
+
+.sf-page-header__crumbs {
+  --bs-breadcrumb-divider: "›";
+  flex-wrap: wrap;
+  font-size: 0.8125rem;
+}
+
+.sf-page-header__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+// ---------------------------------------------------------------------------
+// Tables (TransactionsTable and the hand-written tables in features/)
+
+.table-custom {
+  --bs-table-border-color: var(--sf-border-subtle);
+
+  > :not(caption) > * > * {
+    border-color: var(--sf-border-subtle);
+  }
+
+  > thead th {
+    color: var(--bs-secondary-color);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+}
+
+.table-centered > :not(caption) > * > * {
+  vertical-align: middle;
+}
+
+.table-select > tbody > tr {
+  cursor: pointer;
+
+  &:hover > * {
+    --bs-table-bg-state: var(--bs-tertiary-bg);
+  }
+}
+
+.thead-sm > tr > th {
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+}
+
+// Sortable column header: a plain button that looks like the header text.
+.sf-sort-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  background: none;
+  border: 0;
+}
+
+// Rows that open a detail view on click or Enter/Space.
+.sf-row-clickable {
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 0.25rem solid var(--bs-focus-ring-color);
+    outline-offset: -0.25rem;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Transactions pager: the summary and the page list wrap onto two lines on
+// narrow screens instead of overflowing.
+
+.sf-pager {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 0.75rem;
+}
+
+// ---------------------------------------------------------------------------
+// Card header action trigger (kebab menu)
+
+.card-drop {
+  font-size: 1.125rem;
+  line-height: 1;
+  color: var(--bs-secondary-color);
+
+  &:hover,
+  &:focus-visible {
+    color: var(--bs-emphasis-color);
+  }
+}
+
+.dropdown-menu-lg {
+  width: 20rem;
+  max-width: calc(100vw - 2rem);
+}
+
+// ---------------------------------------------------------------------------
+// Cards: a soft lift in light mode; dark mode relies on borders.
+
+.card {
+  box-shadow: 0 1px 3px rgba(var(--sf-neutral-rgb), 0.06);
+}
+
+// ---------------------------------------------------------------------------
+// Dark-mode remaps
+
+[data-bs-theme="dark"] {
+  // Bootstrap keeps --bs-light-rgb / --bs-dark-rgb at their light-mode values,
+  // so bg-light, border-light and text-dark would stay light-on-light. Point them
+  // at the dark surface and the light neutral text instead.
+  --bs-light-rgb: var(--sf-surface-sunken-rgb);
+  --bs-dark-rgb: var(--sf-neutral-rgb);
+
+  .card {
+    box-shadow: none;
+  }
+
+  .btn-light {
+    --bs-btn-color: var(--bs-body-color);
+    --bs-btn-bg: var(--sf-surface-raised);
+    --bs-btn-border-color: var(--sf-border-subtle);
+    --bs-btn-hover-color: var(--bs-emphasis-color);
+    --bs-btn-hover-bg: var(--bs-tertiary-bg);
+    --bs-btn-hover-border-color: var(--bs-border-color);
+    --bs-btn-active-color: var(--bs-emphasis-color);
+    --bs-btn-active-bg: var(--bs-tertiary-bg);
+    --bs-btn-active-border-color: var(--bs-border-color);
+    --bs-btn-disabled-color: var(--bs-body-color);
+    --bs-btn-disabled-bg: var(--sf-surface-raised);
+    --bs-btn-disabled-border-color: var(--sf-border-subtle);
+  }
+
+  // Theme-color text: the mid-tone theme colors sit near 3-3.8:1 on the dark
+  // card, the *-text-emphasis colors clear 4.5:1. This attribute-scoped rule
+  // out-ranks Bootstrap's single-class !important utility.
+  @each $color in $sf-theme-text-colors {
+    .text-#{$color} {
+      color: var(--bs-#{$color}-text-emphasis) !important;
+    }
+
+    .btn-outline-#{$color} {
+      --bs-btn-color: var(--bs-#{$color}-text-emphasis);
+    }
+  }
+}

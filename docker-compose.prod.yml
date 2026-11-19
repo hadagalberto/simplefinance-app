@@ -1,0 +1,68 @@
+# Production compose for StackForge deploy.
+# StackForge's nginx reverse-proxies the domain -> the front container's published
+# host port (internalPort). The front (nginx) serves the SPA and proxies /api,
+# /health, /hangfire to the api container over the compose network. api + postgres
+# are NOT published to the host. All secrets come from StackForge-managed env vars.
+services:
+  postgres:
+    # pgvector/pgvector:pg17 = official Postgres 17 + pgvector extension. Same PG17 major and
+    # PGDATA layout as the stock PG17 image, so the existing pgdata volume works unchanged (no dump/restore).
+    # Required so migrate-on-start's CREATE EXTENSION vector (15-02) does not crash the API.
+    image: pgvector/pgvector:pg17
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: docker/api.Dockerfile
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      ConnectionStrings__Default: ${ConnectionStrings__Default}
+      ASPNETCORE_URLS: http://+:8080
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+      # Behind two nginx layers (StackForge -> front -> api); trust forwarded headers
+      # so the real client IP/proto reach the app (Pluggy webhook source-IP check).
+      ASPNETCORE_FORWARDEDHEADERS_ENABLED: "true"
+      Jwt__SigningKey: ${Jwt__SigningKey}
+      Jwt__AccessTokenMinutes: ${Jwt__AccessTokenMinutes}
+      Jwt__RefreshTokenDays: ${Jwt__RefreshTokenDays}
+      Totp__EncryptionKey: ${Totp__EncryptionKey}
+      Cors__AllowedOrigin: ${Cors__AllowedOrigin}
+      Pluggy__ClientId: ${Pluggy__ClientId}
+      Pluggy__ClientSecret: ${Pluggy__ClientSecret}
+      Pluggy__Environment: ${Pluggy__Environment}
+      Pluggy__WebhookPublicUrl: ${Pluggy__WebhookPublicUrl}
+      Pluggy__WebhookSecretValue: ${Pluggy__WebhookSecretValue}
+      Sync__DailySyncCronExpression: ${Sync__DailySyncCronExpression}
+      Sync__ManualSyncCooldownSeconds: ${Sync__ManualSyncCooldownSeconds}
+
+  front:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        # Empty = same-origin: the SPA calls /api/* on its own origin, and the
+        # front nginx proxies to the api container.
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL}
+    restart: unless-stopped
+    depends_on:
+      - api
+    ports:
+      - "127.0.0.1:1360:80"
+
+volumes:
+  pgdata:

@@ -1,0 +1,13 @@
+{
+  "download": {
+    "title": "Download backup",
+    "description": "Download a complete copy of your financial data for safekeeping.",
+    "button": "Download backup",
+    "downloading": "Downloading…",
+    "error": "Couldn't download your backup. Please try again."
+  },
+  "fullBackup": {
+    "title": "Full database backup",
+    "description": "For a complete infrastructure-level backup including the app's own settings and auth data, run this from the server hosting SimpleFinance."
+  }
+}

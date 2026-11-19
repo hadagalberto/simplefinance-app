@@ -1,0 +1,35 @@
+{
+  "results": [
+    {
+      "id": "inv-001",
+      "number": "12345",
+      "name": "Tesouro Selic 2029",
+      "balance": 5230.45,
+      "currencyCode": "BRL",
+      "type": "FIXED_INCOME",
+      "subtype": "TESOURO_DIRETO",
+      "code": "SELIC2029",
+      "isin": "BRSTNCLF1R83",
+      "value": 5230.45,
+      "quantity": 4.918273,
+      "amount": 5000.00,
+      "taxes": 12.30,
+      "date": "2026-07-01T00:00:00Z",
+      "dueDate": "2029-03-01T00:00:00Z",
+      "owner": "Fulano de Tal",
+      "amountProfit": 230.45,
+      "amountWithdrawal": null,
+      "amountOriginal": 5000.00,
+      "status": "ACTIVE",
+      "issuer": "Tesouro Nacional",
+      "issueDate": "2024-03-01T00:00:00Z",
+      "lastMonthRate": 0.89,
+      "lastTwelveMonthsRate": 10.75,
+      "annualRate": 11.65,
+      "rate": 100.0,
+      "rateType": "CDI",
+      "fixedAnnualRate": null,
+      "itemId": "item-001"
+    }
+  ]
+}

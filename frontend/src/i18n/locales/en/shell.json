@@ -1,0 +1,55 @@
+{
+  "chartCard": {
+    "loadError": "We couldn't load this chart."
+  },
+  "userDropdown": {
+    "account": "Account",
+    "welcomeBack": "Welcome back, {{name}}!",
+    "changePassword": "Change Password",
+    "enableTwoFactor": "Enable Two-Factor",
+    "logOut": "Log Out"
+  },
+  "search": {
+    "placeholder": "Quick Search..."
+  },
+  "theme": {
+    "label": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "footer": {
+    "copyright": "© {{year}} SimpleFinance"
+  },
+  "sidebar": {
+    "navLabel": "Main navigation",
+    "close": "Close menu"
+  },
+  "topbar": {
+    "toggleMenu": "Toggle menu"
+  },
+  "fullscreen": {
+    "enter": "Enter full screen",
+    "exit": "Exit full screen"
+  },
+  "language": {
+    "label": "Language"
+  },
+  "authLayout": {
+    "tagline": "Your money from every bank, in one place.",
+    "highlights": {
+      "consolidated": "Accounts, cards and investments consolidated via Open Finance",
+      "budget": "Budgets, goals and automatic alerts",
+      "selfHosted": "Runs on your own infrastructure"
+    },
+    "backToApp": "Back to the app"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The address you opened does not exist or has moved.",
+    "back": "Back to dashboard"
+  },
+  "pageHeader": {
+    "breadcrumb": "Breadcrumb"
+  }
+}

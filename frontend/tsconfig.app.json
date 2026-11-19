@@ -1,0 +1,38 @@
+// TypeScript settings for the browser app in src/. Vite does the actual
+// transpiling; tsc is only used here as a type checker.
+{
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/app.tsbuildinfo",
+
+    // Output language level and the runtime APIs we can rely on in the browser.
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "useDefineForClassFields": true,
+    "types": ["vite/client"],
+
+    // Module handling mirrors what the Vite bundler accepts.
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "moduleDetection": "force",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    // Import alias, kept in sync with resolve.alias in vite.config.ts.
+    // Resolved relative to this file, so no baseUrl is needed.
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
+    // Type-safety rules.
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "erasableSyntaxOnly": true,
+    "noUncheckedSideEffectImports": true,
+    "skipLibCheck": true
+  },
+  "include": ["src"]
+}

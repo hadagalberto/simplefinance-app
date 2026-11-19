@@ -1,0 +1,22 @@
+// TypeScript settings for code that runs in Node at build time
+// (currently only vite.config.ts). Checked, never emitted.
+{
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/node.tsbuildinfo",
+
+    // Node 20+ supports everything in ES2023.
+    "target": "ES2023",
+    "lib": ["ES2023"],
+    "types": ["node"],
+
+    // Same resolution rules as the app; imports of types must say `import type`.
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "verbatimModuleSyntax": true,
+    "noEmit": true,
+
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "include": ["vite.config.ts"]
+}

@@ -1,0 +1,58 @@
+{
+  "pageTitle": "Painel",
+  "loadError": "Não foi possível carregar seu painel. Tente novamente.",
+  "stat": {
+    "netWorth": "Patrimônio líquido",
+    "totalBalance": "Saldo total",
+    "cardDebt": "Dívida no cartão",
+    "incomeThisMonth": "Receitas do mês",
+    "expensesThisMonth": "Despesas do mês",
+    "netThisMonth": "Saldo do mês"
+  },
+  "chart": {
+    "spendingByCategory": {
+      "title": "Gastos por categoria",
+      "emptyMessage": "Nenhum gasto registrado neste período ainda.",
+      "uncategorized": "Sem categoria",
+      "others": "Outros"
+    },
+    "netWorthOverTime": {
+      "title": "Patrimônio líquido ao longo do tempo",
+      "valueLabel": "Patrimônio líquido",
+      "emptyMessage": "Seu histórico de patrimônio líquido começa hoje. Volte amanhã para ver como ele evolui.",
+      "ranges": {
+        "6m": "6M",
+        "12m": "12M"
+      }
+    },
+    "incomeVsExpenses": {
+      "title": "Receitas x despesas"
+    },
+    "budgetsAtRisk": {
+      "title": "Orçamentos em risco",
+      "viewAll": "Ver todos os orçamentos",
+      "emptyMessage": "Nada em risco no momento — todos os orçamentos estão em dia."
+    },
+    "upcomingDueDates": {
+      "title": "Próximos vencimentos",
+      "emptyMessage": "Nenhum vencimento nos próximos 7 dias."
+    }
+  },
+  "period": {
+    "thisMonth": "Este mês",
+    "lastMonth": "Mês passado",
+    "customRange": "Período personalizado",
+    "from": "De",
+    "to": "Até",
+    "apply": "Aplicar"
+  },
+  "atRiskCard": {
+    "projected": "Projeção: {{percent}}%",
+    "viewBudget": "Ver orçamento"
+  },
+  "upcomingDueDate": {
+    "due": "Vence em {{date}}",
+    "dueToday": "Vence hoje",
+    "daysUntil": "{{count}}d"
+  }
+}

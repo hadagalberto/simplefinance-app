@@ -1,0 +1,99 @@
+{
+  "title": "Relatórios",
+  "period": {
+    "label": "Período (aplica-se a Por categoria, Receita vs despesa, Fluxo de caixa e Faturas do cartão)",
+    "from": "De",
+    "to": "Até"
+  },
+  "tabs": {
+    "byCategory": "Por categoria",
+    "incomeExpense": "Receita vs despesa",
+    "netWorth": "Patrimônio líquido",
+    "cashFlow": "Fluxo de caixa",
+    "cardStatements": "Faturas do cartão",
+    "recurring": "Recorrentes",
+    "budget": "Orçamento"
+  },
+  "export": {
+    "csv": "Exportar CSV",
+    "csvPending": "Exportando…",
+    "excel": "Exportar Excel",
+    "excelPending": "Exportando…",
+    "error": "Não foi possível exportar este relatório. Tente novamente."
+  },
+  "spendingByCategory": {
+    "title": "Gastos por categoria",
+    "empty": "Nenhum gasto registrado para este período ainda.",
+    "uncategorized": "Sem categoria"
+  },
+  "incomeExpenseChart": {
+    "title": "Receita vs. despesas",
+    "empty": "Nenhuma receita ou despesa registrada para este período ainda."
+  },
+  "netWorthChart": {
+    "title": "Patrimônio líquido ao longo do tempo",
+    "empty": "Seu histórico de patrimônio líquido começa hoje. Volte amanhã para ver a evolução.",
+    "valueLabel": "Patrimônio líquido"
+  },
+  "cashFlowTable": {
+    "title": "Fluxo de caixa por conta",
+    "empty": "Nenhuma movimentação registrada para este período ainda.",
+    "columns": {
+      "account": "Conta",
+      "inflow": "Entradas",
+      "outflow": "Saídas",
+      "net": "Saldo"
+    }
+  },
+  "cardStatementsTable": {
+    "title": "Faturas do cartão",
+    "empty": "Nenhuma fatura registrada para este período ainda.",
+    "columns": {
+      "account": "Conta",
+      "month": "Mês",
+      "statementTotal": "Total da fatura",
+      "creditLimit": "Limite de crédito",
+      "dueDate": "Data de vencimento"
+    }
+  },
+  "recurringTable": {
+    "title": "Cobranças recorrentes",
+    "empty": "Nenhuma cobrança recorrente detectada ainda.",
+    "columns": {
+      "name": "Nome",
+      "category": "Categoria",
+      "avgAmount": "Valor médio",
+      "frequency": "Frequência",
+      "lastCharge": "Última cobrança",
+      "nextEstimated": "Próxima estimada",
+      "yearlyTotal": "Total anual"
+    },
+    "new": "Novo",
+    "priceIncrease": "Aumento de preço",
+    "uncategorized": "Sem categoria"
+  },
+  "budgetTable": {
+    "title": "Orçamento realizado vs. planejado",
+    "empty": "Nenhum orçamento definido para este mês ainda.",
+    "columns": {
+      "category": "Categoria",
+      "planned": "Planejado",
+      "realized": "Realizado",
+      "variance": "Variação"
+    }
+  },
+  "months": {
+    "january": "Janeiro",
+    "february": "Fevereiro",
+    "march": "Março",
+    "april": "Abril",
+    "may": "Maio",
+    "june": "Junho",
+    "july": "Julho",
+    "august": "Agosto",
+    "september": "Setembro",
+    "october": "Outubro",
+    "november": "Novembro",
+    "december": "Dezembro"
+  }
+}
