@@ -1,214 +1,222 @@
 # SimpleFinance
 
-Self-hosted, single-user personal finance app. Connects to your Brazilian bank accounts,
-cards and investments via **Pluggy (Open Finance Brasil)**, consolidates everything into one
-view, and helps you understand spending, follow a budget, track net worth, detect recurring
-subscriptions, hit goals and receive alerts. The source of truth is what the banks return via
-Pluggy — there is no manual transaction entry.
+App de finanças pessoais auto-hospedado e de usuário único. Conecta às suas contas bancárias,
+cartões e investimentos via **Pluggy (Open Finance Brasil)**, consolida tudo numa visão única e
+ajuda a entender os gastos, seguir um orçamento, acompanhar o patrimônio, detectar assinaturas
+recorrentes, bater metas e receber alertas. A fonte de verdade é o que os bancos retornam via
+Pluggy — não há lançamento manual de transações.
 
-Full canonical specification: [`docs/PRD-SimpleFinance.md`](docs/PRD-SimpleFinance.md) (Portuguese). The AI layer specification lives in
-[`docs/PRD-SimpleFinance-IA.md`](docs/PRD-SimpleFinance-IA.md).
+Especificação completa e canônica: [`docs/PRD-SimpleFinance.md`](docs/PRD-SimpleFinance.md). A
+especificação da camada de IA está em [`docs/PRD-SimpleFinance-IA.md`](docs/PRD-SimpleFinance-IA.md).
 
 ## Stack
 
-- **Backend:** .NET 10 (ASP.NET Core), EF Core (domain/CRUD) + Dapper (reports), Hangfire (jobs), PostgreSQL 17 + pgvector.
-- **Frontend:** React 19 + Vite + TypeScript, TanStack Query, ApexCharts, react-router 7, Bootstrap 5 (see [Frontend](#frontend)).
-- **Deploy:** Docker Compose on a VPS, Caddy reverse proxy (automatic HTTPS), migrations applied automatically on API start.
+- **Backend:** .NET 10 (ASP.NET Core), EF Core (domínio/CRUD) + Dapper (relatórios), Hangfire (jobs), PostgreSQL 17 + pgvector.
+- **Frontend:** React 19 + Vite + TypeScript, TanStack Query, ApexCharts, react-router 7, Bootstrap 5 (veja [Frontend](#frontend)).
+- **Deploy:** Docker Compose numa VPS, reverse proxy Caddy (HTTPS automático), migrations aplicadas automaticamente no start da API.
 
-## Getting started
+## Primeiros passos
 
-1. `cp .env.example .env` and fill in real values (see the comments in `.env.example`).
-2. `docker compose up -d` — the API applies EF migrations on start.
-3. The frontend is served at the origin configured by `Cors__AllowedOrigin` / `VITE_API_BASE_URL`.
+1. `cp .env.example .env` e preencha os valores reais (veja os comentários em `.env.example`).
+2. `docker compose up -d` — a API aplica as migrations do EF ao iniciar.
+3. O frontend é servido na origem configurada em `Cors__AllowedOrigin` / `VITE_API_BASE_URL`.
 
-Never commit `.env` — it is gitignored. All secrets (Pluggy client/secret, JWT signing key,
-Telegram/SMTP credentials, AI provider keys) live in environment variables only, never in the DB.
+Nunca faça commit do `.env` — ele está no `.gitignore`. Todos os segredos (client/secret da
+Pluggy, chave de assinatura do JWT, credenciais de Telegram/SMTP, chaves dos provedores de IA)
+ficam só em variáveis de ambiente, nunca no banco.
 
 ## Frontend
 
-The web client lives in `frontend/`.
+O cliente web fica em `frontend/`.
 
-- **Stack:** React 19 + Vite + TypeScript; Bootstrap 5 and react-bootstrap from npm; an authored
-  SCSS theme in `frontend/src/styles/` (dark by default, light available from the topbar);
-  ApexCharts; TanStack Query; react-hook-form + zod; i18n in pt-BR (default) and English.
-- **Icons:** lucide, bundled offline through `@iconify/react/offline` from a committed subset
-  (`frontend/src/components/icons/lucide-subset.json`). lucide is ISC-licensed; its attribution
-  stays in the subset's `info` block. The app never requests a public icon API.
-- **Theme-free:** the frontend contains no code or assets from the commercial admin-template kit
-  it was first built on. Every component, stylesheet and config file is authored for this project.
+- **Stack:** React 19 + Vite + TypeScript; Bootstrap 5 e react-bootstrap via npm; tema SCSS
+  próprio em `frontend/src/styles/` (escuro por padrão, claro disponível na topbar); ApexCharts;
+  TanStack Query; react-hook-form + zod; i18n em pt-BR (padrão) e inglês.
+- **Ícones:** lucide, empacotados offline via `@iconify/react/offline` a partir de um subconjunto
+  versionado (`frontend/src/components/icons/lucide-subset.json`). O lucide tem licença ISC; a
+  atribuição fica no bloco `info` do subconjunto. O app nunca chama uma API pública de ícones.
+- **Livre de tema comercial:** o frontend não contém código nem assets do kit de template admin
+  comercial sobre o qual foi construído no início. Todo componente, folha de estilo e arquivo de
+  configuração foi escrito para este projeto.
 
-### License verifier
+### Verificador de licença
 
 ```bash
 node scripts/check-theme-free.mjs [--json] [--similarity-threshold N]
 ```
 
-It compares every file under `frontend/` (`node_modules`, `dist` and `.vite` are skipped)
-with the kit and reports three things:
+Compara todos os arquivos em `frontend/` (ignorando `node_modules`, `dist` e `.vite`) com o kit
+e reporta três coisas:
 
-- **Identical files:** same bytes (sha256), whatever the name or path.
-- **Vendor strings:** the kit's vendor and product names anywhere in the frontend.
-- **Near-duplicates:** after comments, imports and short lines are removed, a file fails when
-  at least 40 % of its lines are found in one single kit file (default threshold `0.4`,
-  `--similarity-threshold` changes it). `.json` files are compared by ordered 5-line runs
-  instead, because their key/value lines cannot be reworded. Lockfiles are excluded.
+- **Arquivos idênticos:** mesmos bytes (sha256), qualquer que seja o nome ou o caminho.
+- **Strings do fornecedor:** nomes do fornecedor e do produto do kit em qualquer lugar do frontend.
+- **Quase-cópias:** depois de remover comentários, imports e linhas curtas, um arquivo falha
+  quando pelo menos 40 % das suas linhas aparecem num único arquivo do kit (limite padrão `0.4`,
+  ajustável com `--similarity-threshold`). Arquivos `.json` são comparados por sequências
+  ordenadas de 5 linhas, porque suas linhas de chave/valor não têm como ser reescritas. Lockfiles
+  ficam de fora.
 
-Exit codes: `0` clean, `1` a finding, `2` the kit is missing or a usage error.
+Códigos de saída: `0` limpo, `1` algo encontrado, `2` kit ausente ou erro de uso.
 
-The verifier needs a local copy of the purchased kit under `themes/React/StarterKit/{TS,JS}`.
-That folder is gitignored and is never committed. Without it the script exits `2` by design,
-so a clean clone can never report a false pass. Contributors without the kit cannot run it;
-maintainers run it before each release.
+O verificador precisa de uma cópia local do kit comprado em `themes/React/StarterKit/{TS,JS}`.
+Essa pasta está no `.gitignore` e nunca é versionada. Sem ela o script sai com `2` de propósito,
+para que um clone limpo nunca reporte um falso "passou". Quem não tem o kit não consegue rodá-lo;
+os mantenedores rodam antes de cada release.
 
-### Icons
+### Ícones
 
-The subset holds only the icons the source uses. After you add or rename an icon name, run:
+O subconjunto contém só os ícones que o código usa. Depois de adicionar ou renomear um ícone, rode:
 
 ```bash
-node scripts/build-icon-subset.mjs           # regenerate the subset, then commit it
-node scripts/build-icon-subset.mjs --check   # the gate: exit 1 when the subset is stale
+node scripts/build-icon-subset.mjs           # regenera o subconjunto; depois faça commit
+node scripts/build-icon-subset.mjs --check   # o gate: sai com 1 quando o subconjunto está desatualizado
 ```
 
-### End-to-end tests
+### Testes end-to-end
 
-Prerequisites: Docker, and the Chromium browser for Playwright, installed once:
+Pré-requisitos: Docker e o Chromium do Playwright, instalado uma vez:
 
 ```bash
 npx --prefix frontend playwright install chromium
 ```
 
-Run the whole suite:
+Rodar a suíte inteira:
 
 ```bash
 npm --prefix frontend run e2e
 ```
 
-- It resets the throwaway compose project `sfverify` with `down -v`, rebuilds the images from
-  your working tree, creates the user through the first-run setup page and seeds synthetic data.
-  The projects run in order: `setup`, `app`, then `security` (password change and 2FA, last
-  because they change the only user).
-- `sfverify` uses the same ports as the default stack (5433, 5080, 5173), so stop your own
-  stack first. The script refuses to run while it is up and never touches it or its data.
-- Credentials are generated for each run and never stored. Reports and traces go to the
-  gitignored `.e2e-out/` folder at the repo root.
-- Stop the throwaway stack with `npm --prefix frontend run e2e:stack -- down`.
+- Recria o projeto compose descartável `sfverify` com `down -v`, reconstrói as imagens a partir
+  da sua working tree, cria o usuário pela tela de primeiro acesso e popula dados sintéticos. Os
+  projetos rodam em ordem: `setup`, `app` e depois `security` (troca de senha e 2FA, por último
+  porque alteram o único usuário).
+- O Chromium roda com a interface em inglês e a página em pt-BR, de propósito: os campos de valor
+  precisam aceitar `1234,56` mesmo num navegador que usa ponto decimal.
+- O `sfverify` usa as mesmas portas da stack padrão (5433, 5080, 5173), então pare a sua stack
+  antes. O script se recusa a rodar com ela no ar e nunca mexe nela nem nos dados dela.
+- As credenciais são geradas a cada execução e nunca armazenadas. Relatórios e traces vão para a
+  pasta `.e2e-out/` (no `.gitignore`) na raiz do repositório.
+- Para derrubar a stack descartável: `npm --prefix frontend run e2e:stack -- down`.
 
 ### Gates
 
-Run these from the repo root before a release:
+Rode a partir da raiz do repositório antes de um release:
 
 ```bash
 npm --prefix frontend run build
-npm --prefix frontend run lint        # 0 errors
+npm --prefix frontend run lint        # 0 erros
 npm --prefix frontend run typecheck
 node --test scripts/*.test.mjs
 node scripts/check-style-coverage.mjs
 node scripts/check-style-contrast.mjs
 node scripts/check-reachable.mjs
 node scripts/build-icon-subset.mjs --check
-node scripts/check-theme-free.mjs     # maintainers, with the local kit copy
+node scripts/check-theme-free.mjs     # mantenedores, com a cópia local do kit
 npm --prefix frontend run e2e
 ```
 
 ---
 
-## AI layer (v3.0)
+## Camada de IA
 
-SimpleFinance ships an optional AI layer (Phases 15–20 of the IA milestone): LLM-assisted
-transaction categorization, an AI chat assistant, deterministic insights/anomalies/forecast, and
-a monthly summary. **The AI layer is entirely optional** — the app is 100% functional with AI
-turned off, unconfigured, or over budget (graceful degradation is a hard invariant, not a
-fallback path).
+O SimpleFinance traz uma camada de IA opcional: categorização de transações assistida por LLM,
+um assistente de chat, insights/anomalias/previsão determinísticos e um resumo mensal. **A camada
+de IA é totalmente opcional** — o app é 100% funcional com a IA desligada, sem configuração ou
+acima do orçamento (degradar com elegância é uma regra fixa, não um caminho de contingência).
 
-### Environment variables (server-side only)
+### Variáveis de ambiente (só no servidor)
 
-Only the two provider **keys** and the job **cron expressions** are env vars. Everything else that
-tunes AI behaviour (budget cap, auto-apply threshold, per-feature model names, enable flags) lives
-in `UserSettings` (DB) and is edited from the **Settings → IA** screen — not the environment.
+Só as duas **chaves** dos provedores e as **expressões cron** dos jobs são variáveis de ambiente.
+Todo o resto que ajusta o comportamento da IA (teto de gasto, limiar de aplicação automática,
+nomes de modelo por recurso, flags de ativação) fica em `UserSettings` (banco) e é editado na tela
+**Configurações → IA** — não no ambiente.
 
-| Variable | Purpose | Notes |
-|----------|---------|-------|
-| `Ai__DeepSeekApiKey` | DeepSeek bearer key (chat / completions / reasoning) | Server-side only. Never stored in the DB, never returned by the API (the settings endpoint reports only key-*present* status). Missing key ⇒ degrades like an outage (no cloud AI). |
-| `Ai__OpenAiApiKey` | OpenAI bearer key (embeddings, `text-embedding-3-small`, 1536 dims) | Same handling as above. |
-| `Ai__EmbeddingCronExpression` | Nightly embedding backstop | Default `0 3 * * *` (03:00 server-local). |
-| `Ai__CategorizationCronExpression` | Nightly categorization backstop | Default `30 3 * * *` (after embeddings). |
-| `Ai__AnomalyCronExpression` | Nightly anomaly detection | Default `0 4 * * *`. |
-| `Ai__InsightCronExpression` | Daily insight detection + phrasing | Default `30 4 * * *`. |
-| `Ai__ForecastCronExpression` | Daily current-month forecast | Default `0 5 * * *`. |
-| `Ai__MonthlySummaryCronExpression` | Day-1 monthly summary (the one premium call/month) | Default `0 5 1 * *`. |
+| Variável | Para quê | Observações |
+|----------|----------|-------------|
+| `Ai__DeepSeekApiKey` | Chave bearer da DeepSeek (chat / completions / raciocínio) | Só no servidor. Nunca gravada no banco, nunca retornada pela API (o endpoint de configurações só informa se a chave *existe*). Sem a chave ⇒ degrada como numa queda (sem IA na nuvem). |
+| `Ai__OpenAiApiKey` | Chave bearer da OpenAI (embeddings, `text-embedding-3-small`, 1536 dims) | Mesmo tratamento acima. |
+| `Ai__EmbeddingCronExpression` | Backstop noturno de embeddings | Padrão `0 3 * * *` (03:00 no horário do servidor). |
+| `Ai__CategorizationCronExpression` | Backstop noturno de categorização | Padrão `30 3 * * *` (depois dos embeddings). |
+| `Ai__AnomalyCronExpression` | Detecção noturna de anomalias | Padrão `0 4 * * *`. |
+| `Ai__InsightCronExpression` | Detecção diária de insights + redação | Padrão `30 4 * * *`. |
+| `Ai__ForecastCronExpression` | Previsão diária do mês corrente | Padrão `0 5 * * *`. |
+| `Ai__MonthlySummaryCronExpression` | Resumo mensal no dia 1 (a única chamada premium do mês) | Padrão `0 5 1 * *`. |
 
-> The double-underscore (`Ai__DeepSeekApiKey`) is ASP.NET config nesting — it binds to the
-> `Ai:DeepSeekApiKey` configuration key (`AiOptions`).
+> O sublinhado duplo (`Ai__DeepSeekApiKey`) é o aninhamento de configuração do ASP.NET — ele
+> mapeia para a chave `Ai:DeepSeekApiKey` (`AiOptions`).
 
-The per-model USD-per-1M-token **pricing table** (`Ai:Pricing`) is keyed by model *name* in
-`appsettings.json`, so a rate change is a config edit, never a redeploy.
+A **tabela de preços** em USD por 1M de tokens (`Ai:Pricing`) é indexada pelo *nome* do modelo em
+`appsettings.json`, então uma mudança de preço é edição de configuração, nunca um redeploy.
 
-### Cost policy ("caro → barato")
+### Política de custo ("caro → barato")
 
-The layer is engineered to stay cheap by default (default cap **US$ 3.00 / month**):
+A camada foi feita para ficar barata por padrão (teto padrão de **US$ 3,00 / mês**):
 
-- **`deepseek-chat` is the default cheap model** for categorization, the assistant, insight/forecast phrasing.
-- **`deepseek-reasoner` (the expensive model) is used ONLY for the day-1 monthly summary** — exactly one premium call per month.
-- **Nightly batch embedding** — transactions are vectorized in an off-peak batched job (≤100/run), not inline per request.
-- **Embedding cache** — an identical text re-embed is a cache hit (hash-keyed), so it costs nothing.
-- **Hard monthly cap kill-switch** — `AiMonthlyBudgetUsd = 0` ⇒ **zero cloud calls**. Crossing the
-  cap blocks all further cloud calls for the month, fires **exactly one** notification, and resets
-  on the 1st. When over budget every feature falls back to its deterministic path (fallback prose,
-  no narrative, cached results) — nothing breaks.
+- **`deepseek-chat` é o modelo barato padrão** para categorização, assistente e redação de insights/previsão.
+- **`deepseek-reasoner` (o modelo caro) é usado SÓ no resumo mensal do dia 1** — exatamente uma chamada premium por mês.
+- **Embedding em lote noturno** — as transações são vetorizadas num job em lote fora do horário de pico (≤100 por execução), não a cada requisição.
+- **Cache de embeddings** — reprocessar um texto idêntico é acerto de cache (por hash), então não custa nada.
+- **Kill-switch do teto mensal** — `AiMonthlyBudgetUsd = 0` ⇒ **zero chamadas à nuvem**. Ao passar
+  do teto, todas as chamadas à nuvem ficam bloqueadas até o fim do mês, **uma única** notificação
+  é disparada, e o contador zera no dia 1. Acima do orçamento, cada recurso cai para o caminho
+  determinístico (texto padrão, sem narrativa, resultados em cache) — nada quebra.
 
-### Privacy guarantees
+### Garantias de privacidade
 
-- **`PiiRedactor` strips PII before any text leaves the VPS** to an LLM or embedding endpoint:
-  CNPJ (14), CPF (11), card-like numbers (Luhn-confirmed), token/UUID/long-hex secrets (Pluggy
-  item IDs & connect tokens), and bare 6+ digit account/agency runs. Patterns are applied in a
-  deliberate order (CNPJ → CPF → card → token → generic) so the specific passes win.
-- **API keys are env-only and never surfaced.** The settings endpoint reports only whether each
-  key is present — never the value. Keys are never written to the DB.
-- **AI is fully optional.** With AI off or over budget the app stays 100% functional — the
-  dashboard, budgets, reports and net-worth tracking all work with zero cloud calls.
+- **O `PiiRedactor` remove dados pessoais antes de qualquer texto sair da VPS** para um LLM ou
+  endpoint de embeddings: CNPJ (14), CPF (11), números de cartão (confirmados por Luhn),
+  tokens/UUIDs/hex longos (IDs de item e connect tokens da Pluggy) e sequências soltas de 6+
+  dígitos de conta/agência. Os padrões são aplicados numa ordem proposital (CNPJ → CPF → cartão →
+  token → genérico) para os mais específicos ganharem.
+- **As chaves de API ficam só no ambiente e nunca são expostas.** O endpoint de configurações só
+  informa se cada chave existe — nunca o valor. As chaves nunca são gravadas no banco.
+- **A IA é totalmente opcional.** Com a IA desligada ou acima do orçamento, o app continua 100%
+  funcional — dashboard, orçamentos, relatórios e patrimônio funcionam com zero chamadas à nuvem.
 
-### Enable / disable
+### Ligar / desligar
 
-All flags live in `UserSettings` (DB), edited from **Settings → IA**:
+Todas as flags ficam em `UserSettings` (banco), editadas em **Configurações → IA**:
 
-- `AiEnabled` — master switch. When `false`, **no** cloud AI feature runs regardless of per-feature flags, and the dashboard AI card strip is hidden.
-- Per-feature toggles: `AiCategorizationEnabled`, `AiAssistantEnabled`, `AiInsightsEnabled`, `AiAnomalyEnabled`, `AiForecastEnabled`, `AiMonthlySummaryEnabled`.
+- `AiEnabled` — chave geral. Com `false`, **nenhum** recurso de IA na nuvem roda, independente das flags por recurso, e a faixa de cards de IA do dashboard some.
+- Flags por recurso: `AiCategorizationEnabled`, `AiAssistantEnabled`, `AiInsightsEnabled`, `AiAnomalyEnabled`, `AiForecastEnabled`, `AiMonthlySummaryEnabled`.
 
-All default to `false` — a fresh install runs with AI off until you opt in.
+Todas começam em `false` — uma instalação nova roda com a IA desligada até você ativar.
 
-### Model-name deprecation (config-only)
+### Descontinuação de modelos (só configuração)
 
-DeepSeek is deprecating `deepseek-chat` / `deepseek-reasoner` in favour of `deepseek-v4-flash`
-(~2026-07-24). Because the model names live in `UserSettings` (`AiChatModel`, `AiSummaryModel`) and
-the pricing table is keyed by name in config, migrating is a **config-only change via Settings → IA
-plus an `appsettings` pricing row — no code change and no redeploy.**
+A DeepSeek está descontinuando `deepseek-chat` / `deepseek-reasoner` em favor de
+`deepseek-v4-flash` (~2026-07-24). Como os nomes dos modelos ficam em `UserSettings`
+(`AiChatModel`, `AiSummaryModel`) e a tabela de preços é indexada por nome na configuração, migrar
+é **só uma mudança de configuração em Configurações → IA mais uma linha de preço no `appsettings` —
+sem mudar código e sem redeploy.**
 
-### Tunable thresholds (map)
+### Limiares ajustáveis (mapa)
 
-Every tunable default is centralized in a named holder class with a comment inviting real-data
-re-tuning. Defaults below are confirmed sensible for a single-user BR finance app; real-data
-tuning is left to you (adjust in code and rebuild, or via `UserSettings` where noted).
+Todo padrão ajustável está centralizado numa classe nomeada, com um comentário convidando a
+recalibrar com dados reais. Os padrões abaixo são razoáveis para um app de finanças pessoal
+brasileiro de usuário único; a calibração com dados reais fica com você (ajuste no código e
+recompile, ou via `UserSettings` onde indicado).
 
-| Knob | Default | Location | Controls |
-|------|---------|----------|----------|
-| `AiAutoApplyThreshold` | `0.85` | `UserSettings` (DB) + bounds in `SimpleFinance.Application/Ai/AiSettingsValidator.cs` (`[0,1]`) | Confidence at/above which an AI categorization auto-applies (else a suggestion). |
-| `AiMonthlyBudgetUsd` | `3.00` | `UserSettings` (DB) | Hard monthly USD cap; `0` disables all cloud calls. |
-| `AiChatModel` / `AiSummaryModel` | `deepseek-chat` / `deepseek-reasoner` | `UserSettings` (DB) | Per-feature model names (config-only deprecation path). |
-| kNN neighbours / proximity floor | `k = 10` / `sim ≥ 0.80` | `SimpleFinance.Infrastructure/Categorization/AiCategorizationService.cs` (`KnnNeighbors`, `ProximityFloorSim`); scoring in `KnnCategoryVoter.cs` | kNN categorization level-3 vote size + minimum nearest-neighbour cosine similarity to trust a vote. |
-| Modified z-score cutoffs | Warn `3.5` / Critical `5.0`, min history `6` | `SimpleFinance.Infrastructure/Ai/Insights/AnomalyThresholds.cs`; math in `ZScoreStats.cs` | Iglewicz–Hoaglin robust anomaly cutoffs (median/MAD). |
-| Anomaly floors | duplicate window `24h` / floor `R$20` / critical `R$500`; sub-increase `15%`/`50%`; category jump `50%`/`R$200`/baseline `R$50`; lookback `12mo` | `SimpleFinance.Infrastructure/Ai/Insights/AnomalyThresholds.cs` | False-positive spine for anomaly detection. |
-| Insight qualification floors | spending-change `25%`/`R$50`/baseline `R$50`, warn `50%`; budget-risk `80%`; trend `10%`/`3 pts`; sub-creep `15%`/`50%`; new-merchant `R$100`; max `5`/run | `SimpleFinance.Infrastructure/Ai/Insights/InsightThresholds.cs` | Anti-noise floors + per-run signal cap for insights. |
-| Forecast blend / range | blend `0.5`, range `±1σ`, floor `10%`, history `3–6mo`, baseline `3mo`, top `5` drivers | `SimpleFinance.Infrastructure/Ai/Forecast/ForecastThresholds.cs` | Deterministic projection blend + variance band width. |
+| Parâmetro | Padrão | Onde | Controla |
+|-----------|--------|------|----------|
+| `AiAutoApplyThreshold` | `0.85` | `UserSettings` (banco) + limites em `SimpleFinance.Application/Ai/AiSettingsValidator.cs` (`[0,1]`) | Confiança a partir da qual uma categorização da IA é aplicada automaticamente (abaixo disso vira sugestão). |
+| `AiMonthlyBudgetUsd` | `3.00` | `UserSettings` (banco) | Teto mensal em USD; `0` desliga todas as chamadas à nuvem. |
+| `AiChatModel` / `AiSummaryModel` | `deepseek-chat` / `deepseek-reasoner` | `UserSettings` (banco) | Nome do modelo por recurso (troca só por configuração). |
+| Vizinhos kNN / piso de proximidade | `k = 10` / `sim ≥ 0.80` | `SimpleFinance.Infrastructure/Categorization/AiCategorizationService.cs` (`KnnNeighbors`, `ProximityFloorSim`); pontuação em `KnnCategoryVoter.cs` | Tamanho da votação kNN (nível 3 da categorização) + similaridade de cosseno mínima do vizinho mais próximo para confiar num voto. |
+| Cortes do z-score modificado | Alerta `3.5` / Crítico `5.0`, histórico mínimo `6` | `SimpleFinance.Infrastructure/Ai/Insights/AnomalyThresholds.cs`; cálculo em `ZScoreStats.cs` | Cortes robustos de anomalia de Iglewicz–Hoaglin (mediana/MAD). |
+| Pisos de anomalia | janela de duplicata `24h` / piso `R$20` / crítico `R$500`; aumento de assinatura `15%`/`50%`; salto de categoria `50%`/`R$200`/base `R$50`; histórico `12 meses` | `SimpleFinance.Infrastructure/Ai/Insights/AnomalyThresholds.cs` | Base contra falsos positivos na detecção de anomalias. |
+| Pisos de qualificação de insights | variação de gasto `25%`/`R$50`/base `R$50`, alerta `50%`; risco de orçamento `80%`; tendência `10%`/`3 pts`; aumento de assinatura `15%`/`50%`; novo estabelecimento `R$100`; máx. `5` por execução | `SimpleFinance.Infrastructure/Ai/Insights/InsightThresholds.cs` | Pisos anti-ruído + limite de sinais por execução. |
+| Mistura / faixa da previsão | mistura `0.5`, faixa `±1σ`, piso `10%`, histórico `3–6 meses`, base `3 meses`, top `5` fatores | `SimpleFinance.Infrastructure/Ai/Forecast/ForecastThresholds.cs` | Mistura da projeção determinística + largura da faixa de variação. |
 
-### Troubleshooting
+### Solução de problemas
 
-- **`ConcurrentSyncTests.SerializedNonOverlappingSyncLogWindows` fails locally.** This is a
-  *known, pre-existing, non-AI, non-blocking* test-environment issue: the test needs a real
-  Postgres with password auth (advisory locks aren't supported by EF InMemory), and a local
-  Postgres configured for SCRAM/no-password rejects the connection (Npgsql SCRAM error). Point
-  `ConnectionStrings__Test` at a password-auth Postgres (see `.env.example`) to run it. It is not
-  an AI regression and does not block the AI milestone.
+- **`ConcurrentSyncTests.SerializedNonOverlappingSyncLogWindows` falha localmente.** É um problema
+  *conhecido e antigo* do ambiente de testes, sem relação com a IA e que não bloqueia nada: o teste
+  precisa de um Postgres real com autenticação por senha (advisory locks não funcionam no EF
+  InMemory), e um Postgres local configurado com SCRAM/sem senha recusa a conexão (erro SCRAM do
+  Npgsql). Aponte `ConnectionStrings__Test` para um Postgres com autenticação por senha (veja
+  `.env.example`) para rodá-lo.
 
-## License
+## Licença
 
 [MIT](LICENSE).
