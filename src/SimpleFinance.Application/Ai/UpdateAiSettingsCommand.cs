@@ -2,7 +2,8 @@ namespace SimpleFinance.Application.Ai;
 
 /// <summary>
 /// AI-FND-08: the editable AI settings a user submits via PUT /api/ai/settings. The provider keys are
-/// WRITE-ONLY (<see cref="DeepSeekApiKey"/> / <see cref="OpenAiApiKey"/>): they are accepted here, stored
+/// WRITE-ONLY (<see cref="DeepSeekApiKey"/> / <see cref="OpenAiApiKey"/> /
+/// <see cref="AnthropicApiKey"/> / <see cref="OpenRouterApiKey"/>): they are accepted here, stored
 /// encrypted at rest, and never returned by any endpoint. Their tri-state semantics are:
 /// <list type="bullet">
 ///   <item><c>null</c> (field absent from the JSON) ⇒ leave the stored key unchanged;</item>
@@ -25,4 +26,6 @@ public sealed record UpdateAiSettingsCommand(
     string AiSummaryModel,
     string AiLanguage,
     string? DeepSeekApiKey = null,
-    string? OpenAiApiKey = null);
+    string? OpenAiApiKey = null,
+    string? AnthropicApiKey = null,
+    string? OpenRouterApiKey = null);

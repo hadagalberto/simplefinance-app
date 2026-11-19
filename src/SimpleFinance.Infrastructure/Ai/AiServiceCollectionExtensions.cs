@@ -6,8 +6,11 @@ using SimpleFinance.Application.Ai.Assistant;
 using SimpleFinance.Application.Ai.Usage;
 using SimpleFinance.Application.Categorization;
 using SimpleFinance.Infrastructure.Ai.Assistant.Tools;
+using SimpleFinance.Infrastructure.Ai.Anthropic;
 using SimpleFinance.Infrastructure.Ai.DeepSeek;
 using SimpleFinance.Infrastructure.Ai.OpenAi;
+using SimpleFinance.Infrastructure.Ai.OpenRouter;
+using SimpleFinance.Infrastructure.Ai.Routing;
 using SimpleFinance.Infrastructure.Ai.Usage;
 using SimpleFinance.Infrastructure.Categorization;
 
@@ -50,11 +53,9 @@ public static class AiServiceCollectionExtensions
         // request through a fresh scope; AiSettingsService/SemanticSearchTool consume it directly.
         services.AddScoped<IAiKeyProvider, AiKeyProvider>();
 
-        // Per-request Authorization injectors for the DeepSeek/OpenAI HttpClients (registered on the
-        // typed clients below). Transient — the HttpClient factory owns their lifetime; each resolves
-        // the current key via IAiKeyProvider on every SendAsync (replaces the old static header).
-        services.AddTransient<DeepSeekBearerHandler>();
-        services.AddTransient<OpenAiBearerHandler>();
+        // Per-request Authorization injectors for the DeepSeek/OpenAI/OpenRouter HttpClients are
+        // registered with the provider clients below. Transient — the HttpClient factory owns their
+        // lifetime; each resolves the current key via IAiKeyProvider on every SendAsync.
 
         // AI suggestion review-loop operations (list/accept/reject/bulk-accept) — Scoped (touches
         // SimpleFinanceDbContext). Backs GET /api/ai/suggestions + the accept/reject/bulk-accept
@@ -162,17 +163,48 @@ public static class AiServiceCollectionExtensions
         services.AddScoped<IKnnCategoryVoter, KnnCategoryVoter>();
         services.AddScoped<IAiCategorizationService, AiCategorizationService>();
 
-        // --- Provider clients (15-05) ---
+        // --- Provider clients (15-05; Anthropic/OpenRouter routing added later) ---
+        // Chat goes through RoutingLlmClient, which picks the concrete client per call from the model
+        // name (claude-* → Anthropic, vendor/model slug → OpenRouter, else DeepSeek). The concrete
+        // clients are registered as their own types; only the router is exposed as ILlmClient.
+        //
         // DeepSeek chat (AI-FND-01) — typed HttpClient with the standard resilience handler
         // (retry/backoff/circuit-breaker), cloning the PluggyClient registration shape. The Bearer key
         // is NO LONGER baked here: DeepSeekBearerHandler injects it per request (DB-decrypt-else-env,
         // trimmed), so a key edited in Settings → IA takes effect without a restart. ChatAsync/EmbedAsync
         // use these resilient clients; the streaming path uses the separate relaxed client registered below.
-        services.AddHttpClient<ILlmClient, DeepSeekLlmClient>((sp, client) =>
+        services.AddTransient<DeepSeekBearerHandler>();
+        services.AddTransient<OpenAiBearerHandler>();
+        services.AddTransient<OpenRouterBearerHandler>();
+
+        services.AddHttpClient<DeepSeekLlmClient>((sp, client) =>
         {
             var o = sp.GetRequiredService<IOptions<AiOptions>>().Value;
             client.BaseAddress = new Uri(o.DeepSeek.BaseUrl);
         }).AddHttpMessageHandler<DeepSeekBearerHandler>().AddStandardResilienceHandler();
+
+        // OpenRouter chat — same OpenAI-compatible client shape as DeepSeek (shared base class), its own
+        // base URL + per-request OpenRouterBearerHandler. No attribution headers are configured.
+        services.AddHttpClient<OpenRouterLlmClient>((sp, client) =>
+        {
+            var o = sp.GetRequiredService<IOptions<AiOptions>>().Value;
+            client.BaseAddress = new Uri(o.OpenRouter.BaseUrl);
+        }).AddHttpMessageHandler<OpenRouterBearerHandler>().AddStandardResilienceHandler();
+
+        // Anthropic (Claude) chat via the official SDK. The SDK gets a named HttpClient WITHOUT the
+        // standard resilience handler (the SDK retries itself; the handler's timeouts would abort long
+        // thinking/streaming calls) and with the HttpClient timeout disabled (the SDK applies its own).
+        // The API key is resolved per call by AnthropicLlmClient via IAiKeyProvider.
+        services.AddHttpClient(AnthropicLlmClient.HttpClientName, client =>
+        {
+            client.Timeout = Timeout.InfiniteTimeSpan;
+        });
+        services.AddScoped<AnthropicLlmClient>();
+
+        services.AddTransient<ILlmClient>(sp => new RoutingLlmClient(
+            new Lazy<DeepSeekLlmClient>(sp.GetRequiredService<DeepSeekLlmClient>),
+            new Lazy<AnthropicLlmClient>(sp.GetRequiredService<AnthropicLlmClient>),
+            new Lazy<OpenRouterLlmClient>(sp.GetRequiredService<OpenRouterLlmClient>)));
 
         // OpenAI embeddings (AI-FND-02) — typed HttpClient, resilience ON. Key injected per request by
         // OpenAiBearerHandler (no static header).
@@ -182,18 +214,25 @@ public static class AiServiceCollectionExtensions
             client.BaseAddress = new Uri(o.OpenAi.BaseUrl);
         }).AddHttpMessageHandler<OpenAiBearerHandler>().AddStandardResilienceHandler();
 
-        // SEPARATE streaming client for DeepSeek SSE (ChatStreamAsync). Deliberately WITHOUT
+        // SEPARATE streaming clients for DeepSeek/OpenRouter SSE (ChatStreamAsync). Deliberately WITHOUT
         // AddStandardResilienceHandler: the standard handler's total-request timeout aborts long-lived
         // SSE reads mid-stream and its retries cannot replay a partially consumed stream (RESEARCH
-        // Pitfall 3 / T-15-12). Timeout is disabled so the stream can run for its full lifetime; the
-        // DeepSeek client resolves this by name via IHttpClientFactory only for streaming. Same
-        // per-request DeepSeekBearerHandler injects the key.
+        // Pitfall 3 / T-15-12). Timeout is disabled so the stream can run for its full lifetime; each
+        // client resolves its own by name via IHttpClientFactory only for streaming. The same
+        // per-request bearer handler injects the key.
         services.AddHttpClient(DeepSeekLlmClient.StreamingHttpClientName, (sp, client) =>
         {
             var o = sp.GetRequiredService<IOptions<AiOptions>>().Value;
             client.BaseAddress = new Uri(o.DeepSeek.BaseUrl);
             client.Timeout = Timeout.InfiniteTimeSpan;
         }).AddHttpMessageHandler<DeepSeekBearerHandler>();
+
+        services.AddHttpClient(OpenRouterLlmClient.StreamingHttpClientName, (sp, client) =>
+        {
+            var o = sp.GetRequiredService<IOptions<AiOptions>>().Value;
+            client.BaseAddress = new Uri(o.OpenRouter.BaseUrl);
+            client.Timeout = Timeout.InfiniteTimeSpan;
+        }).AddHttpMessageHandler<OpenRouterBearerHandler>();
 
         return services;
     }

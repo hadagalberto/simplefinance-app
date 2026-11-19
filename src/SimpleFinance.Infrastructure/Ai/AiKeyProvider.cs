@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using SimpleFinance.Application.Auth;
+using SimpleFinance.Domain.Enums;
 using SimpleFinance.Infrastructure.Persistence;
 
 namespace SimpleFinance.Infrastructure.Ai;
@@ -20,19 +21,33 @@ public sealed class AiKeyProvider(
     private readonly AiOptions _options = options.Value;
 
     public Task<string?> GetDeepSeekKeyAsync(CancellationToken ct) =>
-        ResolveAsync(deepSeek: true, ct);
+        GetKeyAsync(AiProvider.DeepSeek, ct);
 
     public Task<string?> GetOpenAiKeyAsync(CancellationToken ct) =>
-        ResolveAsync(deepSeek: false, ct);
+        GetKeyAsync(AiProvider.OpenAi, ct);
 
-    private async Task<string?> ResolveAsync(bool deepSeek, CancellationToken ct)
+    public async Task<string?> GetKeyAsync(AiProvider provider, CancellationToken ct)
     {
         var settings = await db.UserSettings
             .OrderBy(s => s.CreatedAt)
-            .Select(s => new { s.DeepSeekApiKeyEncrypted, s.OpenAiApiKeyEncrypted })
+            .Select(s => new
+            {
+                s.DeepSeekApiKeyEncrypted,
+                s.OpenAiApiKeyEncrypted,
+                s.AnthropicApiKeyEncrypted,
+                s.OpenRouterApiKeyEncrypted,
+            })
             .FirstOrDefaultAsync(ct);
 
-        var encrypted = deepSeek ? settings?.DeepSeekApiKeyEncrypted : settings?.OpenAiApiKeyEncrypted;
+        var encrypted = provider switch
+        {
+            AiProvider.DeepSeek => settings?.DeepSeekApiKeyEncrypted,
+            AiProvider.OpenAi => settings?.OpenAiApiKeyEncrypted,
+            AiProvider.Anthropic => settings?.AnthropicApiKeyEncrypted,
+            AiProvider.OpenRouter => settings?.OpenRouterApiKeyEncrypted,
+            _ => null,
+        };
+
         if (!string.IsNullOrWhiteSpace(encrypted))
         {
             var decrypted = protector.Decrypt(encrypted).Trim();
@@ -42,7 +57,15 @@ public sealed class AiKeyProvider(
             }
         }
 
-        var envValue = (deepSeek ? _options.DeepSeekApiKey : _options.OpenAiApiKey)?.Trim();
+        var envValue = (provider switch
+        {
+            AiProvider.DeepSeek => _options.DeepSeekApiKey,
+            AiProvider.OpenAi => _options.OpenAiApiKey,
+            AiProvider.Anthropic => _options.AnthropicApiKey,
+            AiProvider.OpenRouter => _options.OpenRouterApiKey,
+            _ => null,
+        })?.Trim();
+
         return string.IsNullOrEmpty(envValue) ? null : envValue;
     }
 }

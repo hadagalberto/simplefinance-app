@@ -23,6 +23,9 @@ public sealed class AiSettingsValidator : AbstractValidator<UpdateAiSettingsComm
             .GreaterThanOrEqualTo(0m)
             .WithMessage("'AiMonthlyBudgetUsd' must be zero or greater.");
 
+        // Model names are free text on purpose: the provider is chosen from the name at call time
+        // (claude-* → Anthropic, vendor/model slug → OpenRouter, anything else → DeepSeek), so no
+        // provider-specific allow-list here — only non-empty + the column cap.
         RuleFor(x => x.AiChatModel)
             .NotEmpty()
             .MaximumLength(64);
@@ -45,5 +48,13 @@ public sealed class AiSettingsValidator : AbstractValidator<UpdateAiSettingsComm
         RuleFor(x => x.OpenAiApiKey)
             .MaximumLength(200)
             .When(x => !string.IsNullOrEmpty(x.OpenAiApiKey));
+
+        RuleFor(x => x.AnthropicApiKey)
+            .MaximumLength(200)
+            .When(x => !string.IsNullOrEmpty(x.AnthropicApiKey));
+
+        RuleFor(x => x.OpenRouterApiKey)
+            .MaximumLength(200)
+            .When(x => !string.IsNullOrEmpty(x.OpenRouterApiKey));
     }
 }

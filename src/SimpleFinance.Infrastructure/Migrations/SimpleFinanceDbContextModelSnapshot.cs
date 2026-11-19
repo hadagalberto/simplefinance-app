@@ -1616,6 +1616,10 @@ namespace SimpleFinance.Infrastructure.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("character varying(64)");
 
+                    b.Property<string>("AnthropicApiKeyEncrypted")
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
+
                     b.Property<string>("BaseCurrency")
                         .IsRequired()
                         .HasMaxLength(8)
@@ -1637,6 +1641,10 @@ namespace SimpleFinance.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("OpenAiApiKeyEncrypted")
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
+
+                    b.Property<string>("OpenRouterApiKeyEncrypted")
                         .HasMaxLength(512)
                         .HasColumnType("character varying(512)");
 

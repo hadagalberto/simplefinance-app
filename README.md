@@ -126,7 +126,7 @@ acima do orçamento (degradar com elegância é uma regra fixa, não um caminho 
 
 ### Variáveis de ambiente (só no servidor)
 
-Só as duas **chaves** dos provedores e as **expressões cron** dos jobs são variáveis de ambiente.
+Só as **chaves** dos provedores (DeepSeek, OpenAI, Anthropic, OpenRouter) e as **expressões cron** dos jobs são variáveis de ambiente.
 Todo o resto que ajusta o comportamento da IA (teto de gasto, limiar de aplicação automática,
 nomes de modelo por recurso, flags de ativação) fica em `UserSettings` (banco) e é editado na tela
 **Configurações → IA** — não no ambiente.
@@ -135,6 +135,8 @@ nomes de modelo por recurso, flags de ativação) fica em `UserSettings` (banco)
 |----------|----------|-------------|
 | `Ai__DeepSeekApiKey` | Chave bearer da DeepSeek (chat / completions / raciocínio) | Só no servidor. Nunca gravada no banco, nunca retornada pela API (o endpoint de configurações só informa se a chave *existe*). Sem a chave ⇒ degrada como numa queda (sem IA na nuvem). |
 | `Ai__OpenAiApiKey` | Chave bearer da OpenAI (embeddings, `text-embedding-3-small`, 1536 dims) | Mesmo tratamento acima. |
+| `Ai__AnthropicApiKey` | Chave da Anthropic (Claude) — usada quando o modelo começa com `claude-` | Mesmo tratamento acima. Opcional. |
+| `Ai__OpenRouterApiKey` | Chave bearer do OpenRouter — usada quando o modelo é um slug `fornecedor/modelo` | Mesmo tratamento acima. Opcional. |
 | `Ai__EmbeddingCronExpression` | Backstop noturno de embeddings | Padrão `0 3 * * *` (03:00 no horário do servidor). |
 | `Ai__CategorizationCronExpression` | Backstop noturno de categorização | Padrão `30 3 * * *` (depois dos embeddings). |
 | `Ai__AnomalyCronExpression` | Detecção noturna de anomalias | Padrão `0 4 * * *`. |
@@ -145,8 +147,33 @@ nomes de modelo por recurso, flags de ativação) fica em `UserSettings` (banco)
 > O sublinhado duplo (`Ai__DeepSeekApiKey`) é o aninhamento de configuração do ASP.NET — ele
 > mapeia para a chave `Ai:DeepSeekApiKey` (`AiOptions`).
 
+Todas as quatro chaves também podem ser definidas em **Configurações → IA**; o valor digitado ali
+é guardado criptografado no banco e tem prioridade sobre a variável de ambiente ("Limpar" volta
+para a variável de ambiente). A API nunca devolve o valor — só se a chave existe.
+
 A **tabela de preços** em USD por 1M de tokens (`Ai:Pricing`) é indexada pelo *nome* do modelo em
 `appsettings.json`, então uma mudança de preço é edição de configuração, nunca um redeploy.
+
+### Provedores de chat (DeepSeek, Anthropic, OpenRouter)
+
+Não existe uma configuração separada de "provedor": ele é escolhido **pelo nome do modelo** digitado
+em **Configurações → IA** (`AiChatModel` / `AiSummaryModel`):
+
+| Nome do modelo | Provedor | Exemplo |
+|----------------|----------|---------|
+| começa com `claude-` | Anthropic (SDK oficial em C#) | `claude-haiku-5-5`, `claude-sonnet-5-5`, `claude-opus-5-5` |
+| contém `/` (slug `fornecedor/modelo`) | OpenRouter (API compatível com OpenAI) | `openai/gpt-5`, `anthropic/claude-sonnet-5-5` |
+| qualquer outro | DeepSeek | `deepseek-chat`, `deepseek-reasoner` |
+
+Os embeddings continuam sempre na OpenAI. Todos os provedores passam pelo mesmo caminho
+**redigir → checar orçamento → enviar → registrar uso**, e qualquer falha (chave ausente, erro do
+provedor, recusa do Claude) cai no fallback determinístico de cada recurso.
+
+> **Custo de modelos sem linha de preço.** Um modelo que não está em `Ai:Pricing` é registrado com
+> custo estimado **0** — ou seja, ele **não conta para o teto mensal**. Os modelos Claude
+> (`claude-opus-5-5`, `claude-sonnet-5-5`, `claude-haiku-5-5`) já têm linha de preço; para um slug
+> do OpenRouter, adicione uma linha com o preço do OpenRouter. Como `:` é o separador de seções da
+> configuração do ASP.NET, um slug com `:` (ex.: `...:free`) não pode virar chave de preço.
 
 ### Política de custo ("caro → barato")
 
@@ -168,8 +195,9 @@ A camada foi feita para ficar barata por padrão (teto padrão de **US$ 3,00 / m
   tokens/UUIDs/hex longos (IDs de item e connect tokens da Pluggy) e sequências soltas de 6+
   dígitos de conta/agência. Os padrões são aplicados numa ordem proposital (CNPJ → CPF → cartão →
   token → genérico) para os mais específicos ganharem.
-- **As chaves de API ficam só no ambiente e nunca são expostas.** O endpoint de configurações só
-  informa se cada chave existe — nunca o valor. As chaves nunca são gravadas no banco.
+- **As chaves de API nunca são expostas.** O endpoint de configurações só
+  informa se cada chave existe — nunca o valor. Uma chave definida na tela é gravada no banco só
+  criptografada (AES); sem ela, vale a variável de ambiente.
 - **A IA é totalmente opcional.** Com a IA desligada ou acima do orçamento, o app continua 100%
   funcional — dashboard, orçamentos, relatórios e patrimônio funcionam com zero chamadas à nuvem.
 
@@ -201,7 +229,7 @@ recompile, ou via `UserSettings` onde indicado).
 |-----------|--------|------|----------|
 | `AiAutoApplyThreshold` | `0.85` | `UserSettings` (banco) + limites em `SimpleFinance.Application/Ai/AiSettingsValidator.cs` (`[0,1]`) | Confiança a partir da qual uma categorização da IA é aplicada automaticamente (abaixo disso vira sugestão). |
 | `AiMonthlyBudgetUsd` | `3.00` | `UserSettings` (banco) | Teto mensal em USD; `0` desliga todas as chamadas à nuvem. |
-| `AiChatModel` / `AiSummaryModel` | `deepseek-chat` / `deepseek-reasoner` | `UserSettings` (banco) | Nome do modelo por recurso (troca só por configuração). |
+| `AiChatModel` / `AiSummaryModel` | `deepseek-chat` / `deepseek-reasoner` | `UserSettings` (banco) | Nome do modelo por recurso (troca só por configuração); o nome também escolhe o provedor (`claude-*` → Anthropic, `fornecedor/modelo` → OpenRouter, resto → DeepSeek). |
 | Vizinhos kNN / piso de proximidade | `k = 10` / `sim ≥ 0.80` | `SimpleFinance.Infrastructure/Categorization/AiCategorizationService.cs` (`KnnNeighbors`, `ProximityFloorSim`); pontuação em `KnnCategoryVoter.cs` | Tamanho da votação kNN (nível 3 da categorização) + similaridade de cosseno mínima do vizinho mais próximo para confiar num voto. |
 | Cortes do z-score modificado | Alerta `3.5` / Crítico `5.0`, histórico mínimo `6` | `SimpleFinance.Infrastructure/Ai/Insights/AnomalyThresholds.cs`; cálculo em `ZScoreStats.cs` | Cortes robustos de anomalia de Iglewicz–Hoaglin (mediana/MAD). |
 | Pisos de anomalia | janela de duplicata `24h` / piso `R$20` / crítico `R$500`; aumento de assinatura `15%`/`50%`; salto de categoria `50%`/`R$200`/base `R$50`; histórico `12 meses` | `SimpleFinance.Infrastructure/Ai/Insights/AnomalyThresholds.cs` | Base contra falsos positivos na detecção de anomalias. |

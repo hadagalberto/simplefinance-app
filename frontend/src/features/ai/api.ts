@@ -21,7 +21,7 @@ export function isNotFoundError(error: unknown): boolean {
  * GET, one update mutation invalidating ['ai','settings'] on success.
  *
  * The settings response carries a key-present boolean per provider and NEVER a
- * key value (T-15-14) -- deepSeekKeyPresent/openAiKeyPresent only.
+ * key value (T-15-14) -- the deepSeek/openAi/anthropic/openRouter KeyPresent flags only.
  */
 
 export interface AiSettingsResponse {
@@ -39,6 +39,8 @@ export interface AiSettingsResponse {
   aiLanguage: string
   deepSeekKeyPresent: boolean
   openAiKeyPresent: boolean
+  anthropicKeyPresent: boolean
+  openRouterKeyPresent: boolean
 }
 
 /** Editable AI settings sent to PUT /api/ai/settings. */
@@ -68,6 +70,8 @@ export interface UpdateAiSettingsRequest extends AiSettingsInput {
   accessToken: string
   deepSeekApiKey?: string
   openAiApiKey?: string
+  anthropicApiKey?: string
+  openRouterApiKey?: string
 }
 
 export interface AiUsageFeature {

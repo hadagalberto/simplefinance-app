@@ -214,6 +214,65 @@ public class AiEndpointsTests
     }
 
     [Fact]
+    public void Di_ResolvesRoutingLlmClient_AndAllThreeConcreteChatClients()
+    {
+        using var factory = new AiApiFactory();
+        using var scope = factory.Services.CreateScope();
+        var sp = scope.ServiceProvider;
+
+        Assert.IsType<Infrastructure.Ai.Routing.RoutingLlmClient>(sp.GetRequiredService<Application.Ai.ILlmClient>());
+        Assert.NotNull(sp.GetRequiredService<Infrastructure.Ai.DeepSeek.DeepSeekLlmClient>());
+        Assert.NotNull(sp.GetRequiredService<Infrastructure.Ai.Anthropic.AnthropicLlmClient>());
+        Assert.NotNull(sp.GetRequiredService<Infrastructure.Ai.OpenRouter.OpenRouterLlmClient>());
+    }
+
+    private const string AnthropicKeySentinel = "sk-ant-UI-SECRET-must-never-serialize";
+    private const string OpenRouterKeySentinel = "sk-or-UI-SECRET-must-never-serialize";
+
+    [Fact]
+    public async Task PutSettings_AnthropicAndOpenRouterKeys_StoredEncrypted_ReportedPresent_ClearableAndClaudeModelAccepted()
+    {
+        using var factory = new AiApiFactory();
+        using var client = factory.CreateClient();
+        var (accessToken, userId) = await SetupAndLoginAsync(client);
+
+        var payload = ValidPayload();
+        payload["aiChatModel"] = "claude-sonnet-5-5";
+        payload["aiSummaryModel"] = "openai/gpt-5";
+        payload["anthropicApiKey"] = AnthropicKeySentinel;
+        payload["openRouterApiKey"] = OpenRouterKeySentinel;
+
+        var putResponse = await client.SendAsync(AuthedPut("/api/ai/settings", accessToken, payload));
+        Assert.Equal(HttpStatusCode.OK, putResponse.StatusCode);
+        var putRaw = await putResponse.Content.ReadAsStringAsync();
+        Assert.DoesNotContain(AnthropicKeySentinel, putRaw);
+        Assert.DoesNotContain(OpenRouterKeySentinel, putRaw);
+        var putBody = JsonSerializer.Deserialize<JsonElement>(putRaw);
+        Assert.True(putBody.GetProperty("anthropicKeyPresent").GetBoolean());
+        Assert.True(putBody.GetProperty("openRouterKeyPresent").GetBoolean());
+        Assert.Equal("claude-sonnet-5-5", putBody.GetProperty("aiChatModel").GetString());
+        Assert.Equal("openai/gpt-5", putBody.GetProperty("aiSummaryModel").GetString());
+
+        using (var scope = factory.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<SimpleFinanceDbContext>();
+            var row = await db.UserSettings.FirstAsync(s => s.UserId == userId);
+            var protector = scope.ServiceProvider.GetRequiredService<Application.Auth.ITotpSecretProtector>();
+            Assert.DoesNotContain(AnthropicKeySentinel, row.AnthropicApiKeyEncrypted);
+            Assert.Equal(AnthropicKeySentinel, protector.Decrypt(row.AnthropicApiKeyEncrypted!));
+            Assert.Equal(OpenRouterKeySentinel, protector.Decrypt(row.OpenRouterApiKeyEncrypted!));
+        }
+
+        // Explicit "" clears the Anthropic key only; the OpenRouter key (field omitted) stays.
+        var clearPayload = ValidPayload();
+        clearPayload["anthropicApiKey"] = "";
+        var clearRaw = await (await client.SendAsync(AuthedPut("/api/ai/settings", accessToken, clearPayload))).Content.ReadAsStringAsync();
+        var clearBody = JsonSerializer.Deserialize<JsonElement>(clearRaw);
+        Assert.False(clearBody.GetProperty("anthropicKeyPresent").GetBoolean());
+        Assert.True(clearBody.GetProperty("openRouterKeyPresent").GetBoolean());
+    }
+
+    [Fact]
     public async Task PutSettings_OmittedKey_LeavesStoredKeyUnchanged()
     {
         using var factory = new AiApiFactory();

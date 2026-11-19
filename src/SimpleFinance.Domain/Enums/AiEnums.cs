@@ -17,13 +17,16 @@ public enum AiFeature
 }
 
 /// <summary>
-/// Which external provider serviced a cloud call. DeepSeek backs chat/completions
-/// (OpenAI-compatible API); OpenAi backs embeddings (text-embedding-3-small).
+/// Which external provider serviced a cloud call. DeepSeek, Anthropic (Claude) and OpenRouter back
+/// chat/completions (chosen per call from the model name); OpenAi backs embeddings
+/// (text-embedding-3-small). Persisted as <c>int</c> on AiUsageLog — APPEND-ONLY, never reorder.
 /// </summary>
 public enum AiProvider
 {
     DeepSeek,
-    OpenAi
+    OpenAi,
+    Anthropic,
+    OpenRouter
 }
 
 /// <summary>

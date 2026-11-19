@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using SimpleFinance.Application.Auth;
 using SimpleFinance.Domain.Entities;
+using SimpleFinance.Domain.Enums;
 using SimpleFinance.Infrastructure.Ai;
 using SimpleFinance.Infrastructure.Persistence;
 using SimpleFinance.Infrastructure.Security;
@@ -130,5 +131,34 @@ public class AiKeyProviderTests
         Assert.DoesNotContain("sk-secret-plaintext", row.DeepSeekApiKeyEncrypted);
         // Round-trips back to the original plaintext.
         Assert.Equal("sk-secret-plaintext", protector.Decrypt(row.DeepSeekApiKeyEncrypted!));
+    }
+
+    [Fact]
+    public async Task AnthropicAndOpenRouter_PreferDbKey_FallBackToEnv_Trimmed()
+    {
+        var protector = Protector();
+        await using var db = CreateDb();
+        var now = DateTime.UtcNow;
+        var userId = Guid.NewGuid();
+        db.Users.Add(new User { Id = userId, Name = "Owner", Email = $"o-{userId:N}", PasswordHash = "x", CreatedAt = now, UpdatedAt = now });
+        db.UserSettings.Add(new UserSettings
+        {
+            Id = Guid.NewGuid(),
+            UserId = userId,
+            CreatedAt = now,
+            UpdatedAt = now,
+            AnthropicApiKeyEncrypted = protector.Encrypt(" sk-db-anthropic\n"),
+        });
+        db.SaveChanges();
+
+        var provider = new AiKeyProvider(db, protector, Options.Create(new AiOptions
+        {
+            AnthropicApiKey = "sk-env-anthropic",
+            OpenRouterApiKey = "  sk-env-openrouter  ",
+        }));
+
+        Assert.Equal("sk-db-anthropic", await provider.GetKeyAsync(AiProvider.Anthropic, CancellationToken.None));
+        Assert.Equal("sk-env-openrouter", await provider.GetKeyAsync(AiProvider.OpenRouter, CancellationToken.None));
+        Assert.Null(await provider.GetKeyAsync(AiProvider.DeepSeek, CancellationToken.None));
     }
 }

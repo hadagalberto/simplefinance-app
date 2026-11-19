@@ -10,7 +10,8 @@ namespace SimpleFinance.Infrastructure.Ai;
 /// <summary>
 /// AI-FND-07/08 response shape for GET/PUT /api/ai/settings. Carries every editable AI field from
 /// <see cref="UserSettings"/> plus a presence boolean per provider key
-/// (<see cref="DeepSeekKeyPresent"/> / <see cref="OpenAiKeyPresent"/>). The key VALUE is NEVER part
+/// (<see cref="DeepSeekKeyPresent"/> / <see cref="OpenAiKeyPresent"/> / <see cref="AnthropicKeyPresent"/> /
+/// <see cref="OpenRouterKeyPresent"/>). The key VALUE is NEVER part
 /// of this record — the settings surface reports only whether each env key is configured (T-15-14).
 /// </summary>
 public sealed record AiSettingsResult(
@@ -27,7 +28,9 @@ public sealed record AiSettingsResult(
     string AiSummaryModel,
     string AiLanguage,
     bool DeepSeekKeyPresent,
-    bool OpenAiKeyPresent);
+    bool OpenAiKeyPresent,
+    bool AnthropicKeyPresent,
+    bool OpenRouterKeyPresent);
 
 /// <summary>
 /// AI-FND-07/08: get-or-create read + update of the AI slice of <see cref="UserSettings"/>, and the
@@ -86,6 +89,8 @@ public sealed class AiSettingsService(
         // reuse of the same distinct-from-JWT encryption key; the column ever only holds ciphertext.
         settings.DeepSeekApiKeyEncrypted = ApplyKeyUpdate(settings.DeepSeekApiKeyEncrypted, command.DeepSeekApiKey);
         settings.OpenAiApiKeyEncrypted = ApplyKeyUpdate(settings.OpenAiApiKeyEncrypted, command.OpenAiApiKey);
+        settings.AnthropicApiKeyEncrypted = ApplyKeyUpdate(settings.AnthropicApiKeyEncrypted, command.AnthropicApiKey);
+        settings.OpenRouterApiKeyEncrypted = ApplyKeyUpdate(settings.OpenRouterApiKeyEncrypted, command.OpenRouterApiKey);
 
         settings.UpdatedAt = DateTime.UtcNow;
 
@@ -152,5 +157,7 @@ public sealed class AiSettingsService(
             // Presence only — the key value itself is NEVER read into the response (T-15-14). A key is
             // "present" when the encrypted DB column is set OR the env fallback is non-empty.
             DeepSeekKeyPresent: s.DeepSeekApiKeyEncrypted is not null || !string.IsNullOrWhiteSpace(_options.DeepSeekApiKey),
-            OpenAiKeyPresent: s.OpenAiApiKeyEncrypted is not null || !string.IsNullOrWhiteSpace(_options.OpenAiApiKey));
+            OpenAiKeyPresent: s.OpenAiApiKeyEncrypted is not null || !string.IsNullOrWhiteSpace(_options.OpenAiApiKey),
+            AnthropicKeyPresent: s.AnthropicApiKeyEncrypted is not null || !string.IsNullOrWhiteSpace(_options.AnthropicApiKey),
+            OpenRouterKeyPresent: s.OpenRouterApiKeyEncrypted is not null || !string.IsNullOrWhiteSpace(_options.OpenRouterApiKey));
 }

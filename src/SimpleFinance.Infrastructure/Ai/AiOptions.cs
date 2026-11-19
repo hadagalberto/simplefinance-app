@@ -20,9 +20,21 @@ public class AiOptions
     /// <summary>OpenAI bearer key — env only (Ai__OpenAiApiKey). Never stored, never returned.</summary>
     public string OpenAiApiKey { get; set; } = string.Empty;
 
+    /// <summary>Anthropic (Claude) API key — env fallback (Ai__AnthropicApiKey). Never returned.</summary>
+    public string AnthropicApiKey { get; set; } = string.Empty;
+
+    /// <summary>OpenRouter bearer key — env fallback (Ai__OpenRouterApiKey). Never returned.</summary>
+    public string OpenRouterApiKey { get; set; } = string.Empty;
+
     public AiProviderEndpoint DeepSeek { get; set; } = new() { BaseUrl = "https://api.deepseek.com" };
 
     public AiProviderEndpoint OpenAi { get; set; } = new() { BaseUrl = "https://api.openai.com/v1/" };
+
+    /// <summary>Anthropic Messages API root (the official SDK appends <c>/v1/messages</c>).</summary>
+    public AiProviderEndpoint Anthropic { get; set; } = new() { BaseUrl = "https://api.anthropic.com" };
+
+    /// <summary>OpenRouter OpenAI-compatible root — the trailing slash matters (relative request path).</summary>
+    public AiProviderEndpoint OpenRouter { get; set; } = new() { BaseUrl = "https://openrouter.ai/api/v1/" };
 
     /// <summary>
     /// OpenAI embeddings model — config-driven (Ai:OpenAiEmbeddingModel), never a hard-coded literal

@@ -1,12 +1,14 @@
+using SimpleFinance.Domain.Enums;
+
 namespace SimpleFinance.Infrastructure.Ai;
 
 /// <summary>
-/// Resolves the current DeepSeek / OpenAI bearer key at REQUEST TIME (not at DI-registration time),
-/// so a key edited in Settings → IA takes effect on the very next call without a restart. Resolution
-/// order per provider:
+/// Resolves the current provider key (DeepSeek / OpenAI / Anthropic / OpenRouter) at REQUEST TIME (not
+/// at DI-registration time), so a key edited in Settings → IA takes effect on the very next call without
+/// a restart. Resolution order per provider:
 /// <list type="number">
 ///   <item>the single user's <c>UserSettings</c> encrypted column, when non-null → AES-decrypt + Trim;</item>
-///   <item>else the <c>Ai:{DeepSeek,OpenAi}ApiKey</c> environment value → Trim;</item>
+///   <item>else the <c>Ai:{DeepSeek,OpenAi,Anthropic,OpenRouter}ApiKey</c> environment value → Trim;</item>
 ///   <item>else <c>null</c> (neither configured).</item>
 /// </list>
 /// Every returned key is TRIMMED — this fixes the production whitespace-paste 401 (a key pasted with a
@@ -15,6 +17,9 @@ namespace SimpleFinance.Infrastructure.Ai;
 /// </summary>
 public interface IAiKeyProvider
 {
+    /// <summary>The effective key for <paramref name="provider"/> (DB-decrypted, else env), trimmed. Null when neither is set.</summary>
+    Task<string?> GetKeyAsync(AiProvider provider, CancellationToken ct);
+
     /// <summary>The effective DeepSeek key (DB-decrypted, else env), trimmed. Null when neither is set.</summary>
     Task<string?> GetDeepSeekKeyAsync(CancellationToken ct);
 

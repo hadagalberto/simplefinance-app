@@ -50,6 +50,12 @@ public class UserSettingsConfiguration : IEntityTypeConfiguration<UserSettings>
         builder.Property(s => s.OpenAiApiKeyEncrypted)
             .HasMaxLength(512);
 
+        builder.Property(s => s.AnthropicApiKeyEncrypted)
+            .HasMaxLength(512);
+
+        builder.Property(s => s.OpenRouterApiKeyEncrypted)
+            .HasMaxLength(512);
+
         // One settings row per user.
         builder.HasIndex(s => s.UserId)
             .IsUnique();

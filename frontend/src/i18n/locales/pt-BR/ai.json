@@ -27,7 +27,8 @@
   "models": {
     "chat": "Modelo de chat/categorização",
     "summary": "Modelo de resumo",
-    "required": "Selecione um modelo"
+    "helper": "O provedor é escolhido pelo nome do modelo: nomes que começam com \"claude-\" usam a Anthropic (ex.: claude-sonnet-5-5), nomes no formato fornecedor/modelo usam o OpenRouter (ex.: openai/gpt-5) e os demais usam a DeepSeek (ex.: deepseek-chat). Configure a chave do provedor correspondente abaixo.",
+    "required": "Informe um modelo"
   },
   "language": {
     "label": "Idioma da IA",
@@ -38,6 +39,8 @@
     "helper": "As chaves são armazenadas criptografadas no servidor e nunca são exibidas aqui. Deixe em branco para manter a chave atual; use \"Limpar\" para voltar à variável de ambiente.",
     "deepSeek": "Chave DeepSeek",
     "openAi": "Chave OpenAI",
+    "anthropic": "Chave Anthropic (Claude)",
+    "openRouter": "Chave OpenRouter",
     "present": "Configurada",
     "absent": "Não configurada",
     "configuredPlaceholder": "•••• (configurada)",

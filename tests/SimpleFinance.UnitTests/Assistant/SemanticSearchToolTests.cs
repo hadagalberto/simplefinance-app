@@ -42,6 +42,8 @@ public class SemanticSearchToolTests
     {
         public Task<string?> GetDeepSeekKeyAsync(CancellationToken ct) => Task.FromResult<string?>(null);
         public Task<string?> GetOpenAiKeyAsync(CancellationToken ct) => Task.FromResult(openAiKey);
+        public Task<string?> GetKeyAsync(AiProvider provider, CancellationToken ct) =>
+            provider == AiProvider.OpenAi ? Task.FromResult(openAiKey) : Task.FromResult<string?>(null);
     }
 
     private static IAiKeyProvider KeyProvider(string? openAiKey = "test-key") => new StubKeyProvider(openAiKey);

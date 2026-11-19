@@ -27,7 +27,8 @@
   "models": {
     "chat": "Chat/categorization model",
     "summary": "Summary model",
-    "required": "Select a model"
+    "helper": "The provider is picked from the model name: names starting with \"claude-\" use Anthropic (e.g. claude-sonnet-5-5), vendor/model names use OpenRouter (e.g. openai/gpt-5) and anything else uses DeepSeek (e.g. deepseek-chat). Set the matching provider key below.",
+    "required": "Enter a model"
   },
   "language": {
     "label": "AI language",
@@ -38,6 +39,8 @@
     "helper": "Keys are stored encrypted on the server and are never shown here. Leave blank to keep the current key; use \"Clear\" to revert to the environment variable.",
     "deepSeek": "DeepSeek key",
     "openAi": "OpenAI key",
+    "anthropic": "Anthropic (Claude) key",
+    "openRouter": "OpenRouter key",
     "present": "Configured",
     "absent": "Not configured",
     "configuredPlaceholder": "•••• (configured)",

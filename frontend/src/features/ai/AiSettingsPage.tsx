@@ -27,7 +27,15 @@ import { ApiError } from '@/lib/apiClient'
 
 import { useAiSettings, useAiUsage, useUpdateAiSettings, type AiSettingsResponse } from './api'
 
-const MODEL_OPTIONS = ['deepseek-chat', 'deepseek-reasoner'] as const
+// Suggestions only — the model fields are free text. The backend picks the provider from the name:
+// claude-* → Anthropic, vendor/model slug → OpenRouter, anything else → DeepSeek.
+const MODEL_SUGGESTIONS = [
+  'deepseek-chat',
+  'deepseek-reasoner',
+  'claude-haiku-5-5',
+  'claude-sonnet-5-5',
+  'claude-opus-5-5',
+] as const
 
 // The six per-feature toggles, in display order. Labels resolve from the `ai` namespace.
 const FEATURE_TOGGLES = [
@@ -55,8 +63,8 @@ function buildAiFormSchema(t: TFunction<'ai'>) {
     aiMonthlyBudgetUsd: z
       .number({ message: t('budget.invalid') })
       .min(0, t('budget.invalid')),
-    aiChatModel: z.string().min(1, t('models.required')),
-    aiSummaryModel: z.string().min(1, t('models.required')),
+    aiChatModel: z.string().trim().min(1, t('models.required')).max(64, t('models.required')),
+    aiSummaryModel: z.string().trim().min(1, t('models.required')).max(64, t('models.required')),
     aiLanguage: z.string().min(1, t('language.required')),
   })
 }
@@ -175,8 +183,9 @@ function formatUsd(value: number): string {
 
 /**
  * AI-FND-07/08: Settings > IA screen. Master + per-feature toggles, the auto-apply confidence
- * threshold, the hard monthly USD cap, per-feature model selects, and read-only key-present status
- * badges (DeepSeek/OpenAI -- presence only, the key value is never sent to the browser). Plus a
+ * threshold, the hard monthly USD cap, free-text per-feature model names (the provider is routed from
+ * the name), and write-only key editors with key-present badges (DeepSeek/OpenAI/Anthropic/OpenRouter --
+ * presence only, the key value is never sent to the browser). Plus a
  * read-only Usage panel showing month-to-date spend/tokens per feature and a spend-vs-cap bar.
  * Backed by GET/PUT /api/ai/settings and GET /api/ai/usage. Copies the preferences feature's shape.
  */
@@ -196,8 +205,12 @@ export function AiSettingsPage() {
   // value ⇒ set; the "Limpar" button ⇒ send "" to clear (revert to the env fallback).
   const [deepSeekKeyInput, setDeepSeekKeyInput] = useState('')
   const [openAiKeyInput, setOpenAiKeyInput] = useState('')
+  const [anthropicKeyInput, setAnthropicKeyInput] = useState('')
+  const [openRouterKeyInput, setOpenRouterKeyInput] = useState('')
   const [clearDeepSeek, setClearDeepSeek] = useState(false)
   const [clearOpenAi, setClearOpenAi] = useState(false)
+  const [clearAnthropic, setClearAnthropic] = useState(false)
+  const [clearOpenRouter, setClearOpenRouter] = useState(false)
 
   const form = useForm<AiFormValues>({
     resolver: zodResolver(buildAiFormSchema(t)),
@@ -216,14 +229,20 @@ export function AiSettingsPage() {
   function resetKeyInputs() {
     setDeepSeekKeyInput('')
     setOpenAiKeyInput('')
+    setAnthropicKeyInput('')
+    setOpenRouterKeyInput('')
     setClearDeepSeek(false)
     setClearOpenAi(false)
+    setClearAnthropic(false)
+    setClearOpenRouter(false)
   }
 
   async function onSubmit(values: AiFormValues) {
     // Tri-state per key: clear-intent ⇒ "", typed value ⇒ that value, otherwise omit the field.
     const deepSeekApiKey = clearDeepSeek ? '' : deepSeekKeyInput.trim() !== '' ? deepSeekKeyInput : undefined
     const openAiApiKey = clearOpenAi ? '' : openAiKeyInput.trim() !== '' ? openAiKeyInput : undefined
+    const anthropicApiKey = clearAnthropic ? '' : anthropicKeyInput.trim() !== '' ? anthropicKeyInput : undefined
+    const openRouterApiKey = clearOpenRouter ? '' : openRouterKeyInput.trim() !== '' ? openRouterKeyInput : undefined
 
     try {
       const updated = await updateMutation.mutateAsync({
@@ -231,6 +250,8 @@ export function AiSettingsPage() {
         ...values,
         ...(deepSeekApiKey !== undefined ? { deepSeekApiKey } : {}),
         ...(openAiApiKey !== undefined ? { openAiApiKey } : {}),
+        ...(anthropicApiKey !== undefined ? { anthropicApiKey } : {}),
+        ...(openRouterApiKey !== undefined ? { openRouterApiKey } : {}),
       })
       form.reset(toFormValues(updated))
       resetKeyInputs()
@@ -327,22 +348,43 @@ export function AiSettingsPage() {
 
               <hr />
 
+              <datalist id="ai-model-suggestions">
+                {MODEL_SUGGESTIONS.map((m) => (
+                  <option key={m} value={m} />
+                ))}
+              </datalist>
+
               <div className="mb-3">
-                <FormLabel>{t('models.chat')}</FormLabel>
-                <Form.Select isInvalid={!!form.formState.errors.aiChatModel} {...form.register('aiChatModel')}>
-                  {MODEL_OPTIONS.map((m) => (
-                    <option key={m} value={m}>{m}</option>
-                  ))}
-                </Form.Select>
+                <FormLabel htmlFor="aiChatModel">{t('models.chat')}</FormLabel>
+                <FormControl
+                  id="aiChatModel"
+                  type="text"
+                  list="ai-model-suggestions"
+                  autoComplete="off"
+                  spellCheck={false}
+                  isInvalid={!!form.formState.errors.aiChatModel}
+                  {...form.register('aiChatModel')}
+                />
+                {form.formState.errors.aiChatModel && (
+                  <div className="text-danger fs-xs mt-1">{form.formState.errors.aiChatModel.message}</div>
+                )}
               </div>
 
               <div className="mb-3">
-                <FormLabel>{t('models.summary')}</FormLabel>
-                <Form.Select isInvalid={!!form.formState.errors.aiSummaryModel} {...form.register('aiSummaryModel')}>
-                  {MODEL_OPTIONS.map((m) => (
-                    <option key={m} value={m}>{m}</option>
-                  ))}
-                </Form.Select>
+                <FormLabel htmlFor="aiSummaryModel">{t('models.summary')}</FormLabel>
+                <FormControl
+                  id="aiSummaryModel"
+                  type="text"
+                  list="ai-model-suggestions"
+                  autoComplete="off"
+                  spellCheck={false}
+                  isInvalid={!!form.formState.errors.aiSummaryModel}
+                  {...form.register('aiSummaryModel')}
+                />
+                {form.formState.errors.aiSummaryModel && (
+                  <div className="text-danger fs-xs mt-1">{form.formState.errors.aiSummaryModel.message}</div>
+                )}
+                <p className="text-muted fs-xs mt-1 mb-0">{t('models.helper')}</p>
               </div>
 
               <div className="mb-3">
@@ -383,6 +425,34 @@ export function AiSettingsPage() {
                   onClear={() => {
                     setOpenAiKeyInput('')
                     setClearOpenAi(true)
+                  }}
+                />
+                <KeyField
+                  label={t('keys.anthropic')}
+                  present={settingsQuery.data?.anthropicKeyPresent ?? false}
+                  value={anthropicKeyInput}
+                  cleared={clearAnthropic}
+                  onChange={(v) => {
+                    setAnthropicKeyInput(v)
+                    setClearAnthropic(false)
+                  }}
+                  onClear={() => {
+                    setAnthropicKeyInput('')
+                    setClearAnthropic(true)
+                  }}
+                />
+                <KeyField
+                  label={t('keys.openRouter')}
+                  present={settingsQuery.data?.openRouterKeyPresent ?? false}
+                  value={openRouterKeyInput}
+                  cleared={clearOpenRouter}
+                  onChange={(v) => {
+                    setOpenRouterKeyInput(v)
+                    setClearOpenRouter(false)
+                  }}
+                  onClear={() => {
+                    setOpenRouterKeyInput('')
+                    setClearOpenRouter(true)
                   }}
                 />
                 <p className="text-muted fs-xs mt-1 mb-0">{t('keys.helper')}</p>

@@ -46,6 +46,20 @@ public class UserSettings : UserOwnedEntity
     /// </summary>
     public string? OpenAiApiKeyEncrypted { get; set; }
 
+    /// <summary>
+    /// Anthropic (Claude) API key, AES-encrypted at rest (reuses <c>ITotpSecretProtector</c>). Null ⇒
+    /// fall back to the <c>Ai:AnthropicApiKey</c> env value. Holds CIPHERTEXT ONLY — never plaintext,
+    /// never returned by any endpoint.
+    /// </summary>
+    public string? AnthropicApiKeyEncrypted { get; set; }
+
+    /// <summary>
+    /// OpenRouter bearer key, AES-encrypted at rest (reuses <c>ITotpSecretProtector</c>). Null ⇒ fall
+    /// back to the <c>Ai:OpenRouterApiKey</c> env value. Holds CIPHERTEXT ONLY — never plaintext, never
+    /// returned by any endpoint.
+    /// </summary>
+    public string? OpenRouterApiKeyEncrypted { get; set; }
+
     /// <summary>Master AI switch. When false, no cloud AI feature runs regardless of the per-feature flags.</summary>
     public bool AiEnabled { get; set; } = false;
 
